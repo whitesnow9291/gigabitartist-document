@@ -2140,23 +2140,34 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "root": {
-                    "type": "integer"
-                  },
-                  "detail": {
-                    "type": "string"
-                  },
-                  "hasChild": {
-                    "type": "string"
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "instruments": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "root": {
+                        "type": "integer"
+                      },
+                      "detail": {
+                        "type": "string"
+                      },
+                      "hasChild": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
               }
