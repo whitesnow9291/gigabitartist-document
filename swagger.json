@@ -149,7 +149,7 @@
           {
             "in": "formData",
             "name": "phone_number",
-            "description": "phone number",
+            "description": "phone number (valid  8615174176504)",
             "required": true,
             "type": "string"
           },
