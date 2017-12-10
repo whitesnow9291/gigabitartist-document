@@ -2203,23 +2203,35 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "root": {
-                    "type": "integer"
-                  },
-                  "detail": {
-                    "type": "string"
-                  },
-                  "hasChild": {
-                    "type": "string"
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "instruments": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "root": {
+                        "type": "integer"
+                      },
+                      "detail": {
+                        "type": "string"
+                      },
+                      "hasChild": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
               }
@@ -2289,11 +2301,11 @@
                   "type": "integer",
                   "example": true
                 },
-                "instrument_id": {
-                  "type": "integer"
-                },
                 "message": {
                   "type": "string"
+                },
+                "instrument_id": {
+                  "type": "integer"
                 }
               }
             }
@@ -2323,15 +2335,27 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "format": "int64"
-                  },
-                  "role": {
-                    "type": "string"
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "roles": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "role": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
               }
