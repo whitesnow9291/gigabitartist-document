@@ -96,13 +96,6 @@
             ],
             "description": "provider where user signup by.(original, facebook, google)",
             "required": true
-          },
-          {
-            "in": "formData",
-            "name": "fcm_register_id",
-            "type": "string",
-            "description": "fcm_id for push notification.",
-            "required": true
           }
         ],
         "responses": {
@@ -115,42 +108,6 @@
                   "type": "integer",
                   "format": "int64",
                   "example": true
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surename": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "integer"
-                    }
-                  }
                 },
                 "token": {
                   "type": "string"
@@ -227,42 +184,6 @@
                 },
                 "message": {
                   "type": "string"
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surename": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "integer"
-                    }
-                  }
                 }
               }
             }
@@ -341,88 +262,6 @@
         }
       }
     },
-    "/auth/getProfile": {
-      "post": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "get profile info",
-        "description": "get profile info",
-        "operationId": "getProfile",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of current user",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "profile": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surename": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/band/bandTypes": {
       "get": {
         "tags": [
@@ -439,26 +278,15 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "bandTypes": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "type": {
-                        "type": "string"
-                      }
-                    }
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "type": {
+                    "type": "string"
                   }
                 }
               }
@@ -506,12 +334,6 @@
               "properties": {
                 "current_userID": {
                   "type": "integer"
-                },
-                "result": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
                 },
                 "members": {
                   "type": "array",
@@ -651,56 +473,6 @@
                   "format": "int64",
                   "example": 1
                 },
-                "new_band": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64",
-                      "description": "band id"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "type": {
-                      "type": "integer",
-                      "description": "type of band"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "hometown": {
-                      "type": "string"
-                    },
-                    "musicintensity": {
-                      "type": "integer"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "website": {
-                      "type": "string"
-                    },
-                    "music": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "hasPA": {
-                      "type": "string",
-                      "description": "if band has pa system true"
-                    },
-                    "playacoustic": {
-                      "type": "string",
-                      "description": "if band can playacoustic set true"
-                    },
-                    "hasmerch": {
-                      "type": "string",
-                      "description": "if band hasmerch true"
-                    }
-                  }
-                },
                 "message": {
                   "type": "string",
                   "example": "successfuly created new band"
@@ -744,63 +516,40 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "bands": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "genre": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string",
-                        "description": "band type"
-                      },
-                      "hometown": {
-                        "type": "string"
-                      },
-                      "musicintensity": {
-                        "type": "integer"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "website": {
-                        "type": "string"
-                      },
-                      "music": {
-                        "type": "string"
-                      },
-                      "photo": {
-                        "type": "string"
-                      },
-                      "hasPA": {
-                        "type": "string",
-                        "description": "if band has pa system true"
-                      },
-                      "playacoustic": {
-                        "type": "string",
-                        "description": "if band can playacoustic set true"
-                      },
-                      "hasmerch": {
-                        "type": "string",
-                        "description": "if band hasmerch true"
-                      }
-                    }
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "genre": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "band type"
+                  },
+                  "hometown": {
+                    "type": "string"
+                  },
+                  "musicintensity": {
+                    "type": "integer"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "music": {
+                    "type": "string"
+                  },
+                  "photo": {
+                    "type": "string"
                   }
                 }
               }
@@ -1000,186 +749,9 @@
                   },
                   "photo": {
                     "type": "string"
-                  },
-                  "hasPA": {
-                    "type": "string",
-                    "description": "if band has pa system true"
-                  },
-                  "playacoustic": {
-                    "type": "string",
-                    "description": "if band can playacoustic set true"
-                  },
-                  "hasmerch": {
-                    "type": "string",
-                    "description": "if band hasmerch true"
                   }
                 }
               }
-            }
-          }
-        }
-      }
-    },
-    "/band/setHasPASystem": {
-      "post": {
-        "tags": [
-          "band"
-        ],
-        "summary": "set band has pa system state",
-        "description": "set band has pa system state",
-        "operationId": "setHasPASystem",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "has_pa",
-            "description": "true if band has pa system",
-            "required": true,
-            "type": "file"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/band/setCanPlayAcoustic": {
-      "post": {
-        "tags": [
-          "band"
-        ],
-        "summary": "set band has pa system state",
-        "description": "set band has pa system state",
-        "operationId": "setCanPlayAcoustic",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "canplayacoustic",
-            "description": "true if band can play acoustic",
-            "required": true,
-            "type": "file"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/band/setHasMerch": {
-      "post": {
-        "tags": [
-          "band"
-        ],
-        "summary": "set band has pa system state",
-        "description": "set band has pa system state",
-        "operationId": "setHasMerch",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "hasmerch",
-            "description": "true if band has merch",
-            "required": true,
-            "type": "file"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
             }
           }
         }
@@ -1447,69 +1019,6 @@
         }
       }
     },
-    "/contract/cancelContract": {
-      "post": {
-        "tags": [
-          "contract"
-        ],
-        "summary": "remove user from band",
-        "description": "remove user from band",
-        "operationId": "cancelContract",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "user_id",
-            "description": "id of user",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of current user",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/gig/createGig": {
       "post": {
         "tags": [
@@ -1623,73 +1132,6 @@
                   "type": "integer",
                   "example": true
                 },
-                "gig": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "description": "performance id"
-                    },
-                    "band_id": {
-                      "type": "integer",
-                      "description": "band id"
-                    },
-                    "slot_id": {
-                      "type": "integer"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
-                    "from": {
-                      "type": "string"
-                    },
-                    "to": {
-                      "type": "string"
-                    },
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "capacity": {
-                      "type": "integer"
-                    },
-                    "age": {
-                      "type": "integer"
-                    },
-                    "gear": {
-                      "type": "string"
-                    },
-                    "merch": {
-                      "type": "string"
-                    },
-                    "term": {
-                      "type": "string"
-                    },
-                    "long": {
-                      "type": "string"
-                    },
-                    "lat": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "integer"
-                    },
-                    "load": {
-                      "type": "string"
-                    },
-                    "door": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    }
-                  }
-                },
                 "gig_id": {
                   "type": "integer",
                   "description": "created gig's id"
@@ -1772,80 +1214,91 @@
           "200": {
             "description": "Invalid ID supplied",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "gig": {
-                    "type": "object",
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "gigs": {
+                  "type": "array",
+                  "items": {
                     "properties": {
-                      "id": {
-                        "type": "integer"
+                      "gig": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "capacity": {
+                            "type": "integer"
+                          },
+                          "age": {
+                            "type": "integer"
+                          },
+                          "gear": {
+                            "type": "string"
+                          },
+                          "merch": {
+                            "type": "string"
+                          },
+                          "term": {
+                            "type": "string"
+                          },
+                          "long": {
+                            "type": "string"
+                          },
+                          "lat": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "integer"
+                          },
+                          "load": {
+                            "type": "string"
+                          },
+                          "door": {
+                            "type": "string"
+                          },
+                          "photo": {
+                            "type": "string"
+                          }
+                        }
                       },
-                      "title": {
-                        "type": "string"
-                      },
-                      "address": {
-                        "type": "string"
-                      },
-                      "capacity": {
-                        "type": "integer"
-                      },
-                      "age": {
-                        "type": "integer"
-                      },
-                      "gear": {
-                        "type": "string"
-                      },
-                      "merch": {
-                        "type": "string"
-                      },
-                      "term": {
-                        "type": "string"
-                      },
-                      "long": {
-                        "type": "string"
-                      },
-                      "lat": {
-                        "type": "string"
-                      },
-                      "price": {
-                        "type": "integer"
-                      },
-                      "load": {
-                        "type": "string"
-                      },
-                      "door": {
-                        "type": "string"
-                      },
-                      "photo": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "slots": {
-                    "type": "array",
-                    "items": {
-                      "properties": {
-                        "id": {
-                          "type": "integer"
-                        },
-                        "from": {
-                          "type": "string"
-                        },
-                        "to": {
-                          "type": "string"
-                        },
-                        "gig_id": {
-                          "type": "integer"
-                        },
-                        "band_id": {
-                          "type": "integer"
-                        },
-                        "slot_id": {
-                          "type": "integer"
-                        },
-                        "status": {
-                          "type": "string"
+                      "slots": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            },
+                            "gig_id": {
+                              "type": "integer"
+                            },
+                            "band_id": {
+                              "type": "integer"
+                            },
+                            "slot_id": {
+                              "type": "integer"
+                            },
+                            "status": {
+                              "type": "string"
+                            }
+                          }
                         }
                       }
                     }
@@ -1903,9 +1356,6 @@
                 "result": {
                   "type": "integer",
                   "example": true
-                },
-                "performance_id": {
-                  "type": "integer"
                 },
                 "message": {
                   "type": "string"
@@ -2042,108 +1492,6 @@
         }
       }
     },
-    "/gig/approveMPK": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "approveMPK",
-        "description": "approveMPK",
-        "operationId": "approveMPK",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "perform_id",
-            "description": "id of performance",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "example": true
-                },
-                "performance_id": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/gig/rejectMPK": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "rejectMPK",
-        "description": "rejectMPK",
-        "operationId": "rejectMPK",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "perform_id",
-            "description": "id of performance",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "example": true
-                },
-                "performance_id": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/slot/createSlot": {
       "post": {
         "tags": [
@@ -2191,22 +1539,8 @@
                   "type": "integer",
                   "example": true
                 },
-                "slot": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "from": {
-                      "type": "string"
-                    },
-                    "to": {
-                      "type": "string"
-                    },
-                    "gig_id": {
-                      "type": "integer"
-                    }
-                  }
+                "slot_id": {
+                  "type": "integer"
                 },
                 "message": {
                   "type": "string"
@@ -2505,81 +1839,70 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "performHistory": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "description": "performance id"
-                      },
-                      "band_id": {
-                        "type": "integer",
-                        "description": "band id"
-                      },
-                      "slot_id": {
-                        "type": "integer"
-                      },
-                      "status": {
-                        "type": "string"
-                      },
-                      "from": {
-                        "type": "string"
-                      },
-                      "to": {
-                        "type": "string"
-                      },
-                      "gig_id": {
-                        "type": "integer"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "address": {
-                        "type": "string"
-                      },
-                      "capacity": {
-                        "type": "integer"
-                      },
-                      "age": {
-                        "type": "integer"
-                      },
-                      "gear": {
-                        "type": "string"
-                      },
-                      "merch": {
-                        "type": "string"
-                      },
-                      "term": {
-                        "type": "string"
-                      },
-                      "long": {
-                        "type": "string"
-                      },
-                      "lat": {
-                        "type": "string"
-                      },
-                      "price": {
-                        "type": "integer"
-                      },
-                      "load": {
-                        "type": "string"
-                      },
-                      "door": {
-                        "type": "string"
-                      },
-                      "photo": {
-                        "type": "string"
-                      }
-                    }
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "performance id"
+                  },
+                  "band_id": {
+                    "type": "integer",
+                    "description": "band id"
+                  },
+                  "slot_id": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "from": {
+                    "type": "string"
+                  },
+                  "to": {
+                    "type": "string"
+                  },
+                  "gig_id": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "capacity": {
+                    "type": "integer"
+                  },
+                  "age": {
+                    "type": "integer"
+                  },
+                  "gear": {
+                    "type": "string"
+                  },
+                  "merch": {
+                    "type": "string"
+                  },
+                  "term": {
+                    "type": "string"
+                  },
+                  "long": {
+                    "type": "string"
+                  },
+                  "lat": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "integer"
+                  },
+                  "load": {
+                    "type": "string"
+                  },
+                  "door": {
+                    "type": "string"
+                  },
+                  "photo": {
+                    "type": "string"
                   }
                 }
               }
@@ -2772,29 +2095,6 @@
                   "type": "integer",
                   "example": true
                 },
-                "instrument": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "title of instrument"
-                    },
-                    "root": {
-                      "type": "integer",
-                      "description": "parent id of instrument"
-                    },
-                    "detail": {
-                      "type": "string"
-                    },
-                    "hasChild": {
-                      "type": "string",
-                      "description": "true if it has child instrument"
-                    }
-                  }
-                },
                 "instrument_id": {
                   "type": "integer"
                 },
@@ -2840,34 +2140,23 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "instruments": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "root": {
-                        "type": "integer"
-                      },
-                      "detail": {
-                        "type": "string"
-                      },
-                      "hasChild": {
-                        "type": "string"
-                      }
-                    }
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "root": {
+                    "type": "integer"
+                  },
+                  "detail": {
+                    "type": "string"
+                  },
+                  "hasChild": {
+                    "type": "string"
                   }
                 }
               }
@@ -2903,34 +2192,23 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "instruments": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "root": {
-                        "type": "integer"
-                      },
-                      "detail": {
-                        "type": "string"
-                      },
-                      "hasChild": {
-                        "type": "string"
-                      }
-                    }
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "root": {
+                    "type": "integer"
+                  },
+                  "detail": {
+                    "type": "string"
+                  },
+                  "hasChild": {
+                    "type": "string"
                   }
                 }
               }
@@ -3034,26 +2312,15 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "roles": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "role": {
-                        "type": "string"
-                      }
-                    }
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "role": {
+                    "type": "string"
                   }
                 }
               }
@@ -3102,51 +2369,6 @@
         "00005": {
           "type": "string",
           "description": "already taken"
-        },
-        "00006": {
-          "type": "string",
-          "description": "invalid email"
-        },
-        "00007": {
-          "type": "string",
-          "description": "invalid phone number"
-        }
-      }
-    },
-    "pushnotification_type": {
-      "type": "object",
-      "properties": {
-        "JoinRequestPending": {
-          "type": "string",
-          "description": "when user requested join band"
-        },
-        "InviteRequestPending": {
-          "type": "string",
-          "description": "when user get invite from band"
-        },
-        "removed": {
-          "type": "string",
-          "description": "user removed from band"
-        },
-        "mpksubmit": {
-          "type": "string",
-          "description": "when leader submit mpk"
-        },
-        "mpksuggest": {
-          "type": "string",
-          "description": "user user submit suggestion"
-        },
-        "mpkapprove": {
-          "type": "string",
-          "description": "when mpk approved"
-        },
-        "mpkreject": {
-          "type": "string",
-          "description": "when mpk rejected"
-        },
-        "venuenotifyontime": {
-          "type": "string",
-          "description": "cron job according to schedule."
         }
       }
     },
