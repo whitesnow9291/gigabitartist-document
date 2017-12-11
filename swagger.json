@@ -434,6 +434,12 @@
             "schema": {
               "type": "object",
               "properties": {
+                "result": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
                 "current_userID": {
                   "type": "integer"
                 },
