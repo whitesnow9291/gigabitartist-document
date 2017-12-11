@@ -2531,8 +2531,104 @@
         "00005": {
           "type": "string",
           "description": "already taken"
+        },
+        "00006": {
+          "type": "string",
+          "description": "invalid_email"
+        },
+        "00007": {
+          "type": "string",
+          "description": "invalid_phonenumber"
         }
       }
+    },
+    "user_status": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "description": "when user is leader of band"
+        },
+        "JoinRequestPending": {
+          "type": "string",
+          "description": "when user join request is pending status"
+        },
+        "approvedJoinRequest": {
+          "type": "string",
+          "description": "when user join request was approved"
+        },
+        "InviteRequestPending": {
+          "type": "string",
+          "description": "when user get invite from band.(not approved)"
+        },
+        "approvedInviteRequest": {
+          "type": "string",
+          "description": "when user approved band invite"
+        }
+      }
+    },
+    "performance_status": {
+      "type": "object",
+      "properties": {
+        "pending": {
+          "type": "string",
+          "description": "when submitted mpk is pending status"
+        },
+        "approved": {
+          "type": "string",
+          "description": "when submitted mpk is approved"
+        },
+        "rejected": {
+          "type": "string",
+          "description": "when submitted mpk is rejected"
+        },
+        "suggested": {
+          "type": "string",
+          "description": "when submitted mpk is suggested"
+        }
+      }
+    },
+    "push_notification_type": {
+      "type": "object",
+      "properties": {
+        "removed": {
+          "type": "string",
+          "description": "when band remove user."
+        },
+        "mpksubmit": {
+          "type": "string",
+          "description": "when leader submit mpk"
+        },
+        "mpksuggest": {
+          "type": "string",
+          "description": "when user suggest gig"
+        },
+        "mpkapprove": {
+          "type": "string",
+          "description": "when venue approve mpk"
+        },
+        "mpkreject": {
+          "type": "string",
+          "description": "when venue reject mpk"
+        },
+        "venuenotifyontime": {
+          "type": "string",
+          "description": "notification from cron job"
+        }
+      }
+    },
+    "schedules": {
+      "type": "string",
+      "enum": [
+        "onemonthafter",
+        "twoweeksafter",
+        "oneweekafter",
+        "today",
+        "oneweekbefore",
+        "onedaybefore",
+        "twodaybefore",
+        "fivedaybefore"
+      ]
     },
     "image urls": {
       "type": "object",
