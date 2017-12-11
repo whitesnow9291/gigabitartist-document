@@ -456,7 +456,7 @@
                       "name": {
                         "type": "string"
                       },
-                      "surename": {
+                      "surname": {
                         "type": "string"
                       },
                       "email": {
