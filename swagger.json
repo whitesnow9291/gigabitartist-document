@@ -435,7 +435,9 @@
               "type": "object",
               "properties": {
                 "result": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
                 },
                 "message": {
                   "type": "string"
@@ -704,6 +706,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
@@ -759,6 +762,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
@@ -1238,6 +1242,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "gig_id": {
@@ -1325,7 +1330,9 @@
               "type": "object",
               "properties": {
                 "result": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
                 },
                 "message": {
                   "type": "string"
@@ -1463,6 +1470,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
@@ -1525,6 +1533,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "performance_id": {
@@ -1583,6 +1592,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
@@ -1645,6 +1655,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "slot_id": {
@@ -2064,6 +2075,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "report_id": {
@@ -2129,6 +2141,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "rate_id": {
@@ -2201,6 +2214,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "instrument_id": {
@@ -2251,7 +2265,9 @@
               "type": "object",
               "properties": {
                 "result": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
                 },
                 "message": {
                   "type": "string"
@@ -2315,6 +2331,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
@@ -2407,6 +2424,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
@@ -2447,6 +2465,7 @@
               "properties": {
                 "result": {
                   "type": "integer",
+                  "format": "int64",
                   "example": true
                 },
                 "message": {
