@@ -96,6 +96,13 @@
             ],
             "description": "provider where user signup by.(original, facebook, google)",
             "required": true
+          },
+          {
+            "in": "formData",
+            "name": "fcm_register_id",
+            "type": "string",
+            "description": "fcm token id",
+            "required": true
           }
         ],
         "responses": {
