@@ -279,6 +279,9 @@
         "summary": "Signin Usr",
         "description": "User login to application.",
         "operationId": "signin",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "produces": [
           "application/json"
         ],
@@ -358,6 +361,145 @@
                 },
                 "token": {
                   "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/setFcmRegisterToken": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "update fcm token",
+        "description": "update fcm token",
+        "operationId": "setFcmRegisterToken",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "fcm_register_id",
+            "description": "fcm token",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/getProfile": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get profile of user",
+        "description": "Get profile of user",
+        "operationId": "getProfile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "account": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "surname": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "crypted_password": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "provider": {
+                        "type": "string"
+                      },
+                      "photo": {
+                        "type": "string"
+                      },
+                      "fcm_register_id": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               }
             }
