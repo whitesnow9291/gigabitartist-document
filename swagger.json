@@ -2677,6 +2677,65 @@
         }
       }
     },
+    "/instrument/getInstruments": {
+      "get": {
+        "tags": [
+          "instrument"
+        ],
+        "summary": "get all instruments",
+        "description": "get all instrument",
+        "operationId": "getInstruments",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "dbversion": {
+                  "type": "integer"
+                },
+                "instruments": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "root": {
+                        "type": "integer"
+                      },
+                      "detail": {
+                        "type": "string"
+                      },
+                      "hasChild": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/instrument/searchInstrument": {
       "post": {
         "tags": [
