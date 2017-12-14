@@ -198,9 +198,9 @@
           {
             "in": "formData",
             "name": "photo",
-            "description": "email that need to be updated",
+            "description": "user photo file name",
             "required": true,
-            "type": "file"
+            "type": "string"
           },
           {
             "in": "formData",
@@ -255,6 +255,66 @@
                       "type": "string"
                     }
                   }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/uploadPhoto": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Upload user photo",
+        "description": "Upload user photo",
+        "operationId": "uploadPhoto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "photo",
+            "description": "user photo file name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "filename": {
+                  "type": "string",
+                  "description": "uploaded file name"
                 },
                 "message": {
                   "type": "string"
