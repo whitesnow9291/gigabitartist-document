@@ -2718,14 +2718,14 @@
                       "title": {
                         "type": "string"
                       },
-                      "root": {
-                        "type": "integer"
-                      },
                       "detail": {
                         "type": "string"
                       },
                       "hasChild": {
                         "type": "string"
+                      },
+                      "children": {
+                        "type": "array"
                       }
                     }
                   }
