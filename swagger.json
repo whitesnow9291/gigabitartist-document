@@ -2722,7 +2722,9 @@
                         "type": "string"
                       },
                       "hasChild": {
-                        "type": "string"
+                        "type": "integer",
+                        "format": "int64",
+                        "example": true
                       },
                       "children": {
                         "type": "array"
