@@ -271,7 +271,7 @@
         }
       }
     },
-    "/auth/uploadPhoto": {
+    "/auth/photoUpload": {
       "post": {
         "tags": [
           "auth"
