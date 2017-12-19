@@ -833,6 +833,52 @@
                   "format": "int64",
                   "example": true
                 },
+                "band": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "band type"
+                    },
+                    "hometown": {
+                      "type": "string"
+                    },
+                    "musicintensity": {
+                      "type": "integer"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "website": {
+                      "type": "string"
+                    },
+                    "music": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "hasPA": {
+                      "type": "boolean"
+                    },
+                    "playacoustic": {
+                      "type": "boolean"
+                    },
+                    "hasmerch": {
+                      "type": "boolean"
+                    }
+                  }
+                },
                 "contract_id": {
                   "type": "integer",
                   "format": "int64",
