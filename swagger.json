@@ -740,6 +740,9 @@
                       },
                       "role_id": {
                         "type": "integer"
+                      },
+                      "instruments": {
+                        "type": "array"
                       }
                     }
                   }
@@ -961,6 +964,15 @@
                   },
                   "photo": {
                     "type": "string"
+                  },
+                  "hasPA": {
+                    "type": "boolean"
+                  },
+                  "playacoustic": {
+                    "type": "boolean"
+                  },
+                  "hasmerch": {
+                    "type": "boolean"
                   }
                 }
               }
@@ -1330,6 +1342,15 @@
                   },
                   "photo": {
                     "type": "string"
+                  },
+                  "hasPA": {
+                    "type": "boolean"
+                  },
+                  "playacoustic": {
+                    "type": "boolean"
+                  },
+                  "hasmerch": {
+                    "type": "boolean"
                   }
                 }
               }
