@@ -667,7 +667,7 @@
                     "genre": {
                       "type": "string"
                     },
-                    "type": {
+                    "type_id": {
                       "type": "integer",
                       "description": "band type"
                     },
@@ -774,10 +774,10 @@
           },
           {
             "in": "formData",
-            "name": "type",
+            "name": "type_id",
             "description": "id of band type (you can get this from /band/bandTypes)",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "in": "formData",
@@ -846,7 +846,7 @@
                     "genre": {
                       "type": "string"
                     },
-                    "type": {
+                    "type_id": {
                       "type": "integer",
                       "description": "band type"
                     },
@@ -940,7 +940,7 @@
                   "genre": {
                     "type": "string"
                   },
-                  "type": {
+                  "type_id": {
                     "type": "integer",
                     "description": "band type"
                   },
@@ -1306,7 +1306,7 @@
                   "name": {
                     "type": "string"
                   },
-                  "type": {
+                  "type_id": {
                     "type": "integer",
                     "description": "type of band"
                   },
