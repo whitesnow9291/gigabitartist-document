@@ -1093,119 +1093,7 @@
         }
       }
     },
-    "/band/setHasPASystem": {
-      "post": {
-        "tags": [
-          "band"
-        ],
-        "summary": "set stage plot has pa system status",
-        "description": "set stage plot has pa system status",
-        "operationId": "setHasPASystem",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "has_pa",
-            "description": "true or false",
-            "required": true,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/band/setCanPlayAcoustic": {
-      "post": {
-        "tags": [
-          "band"
-        ],
-        "summary": "set stage plot can play asoustic status",
-        "description": "set stage plot can play asoustic status",
-        "operationId": "setCanPlayAcoustic",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "canplayacoustic",
-            "description": "true or false",
-            "required": true,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/band/setHasMerch": {
+    "/band/setBandService": {
       "post": {
         "tags": [
           "band"
@@ -1229,10 +1117,24 @@
           },
           {
             "in": "formData",
-            "name": "hasmerch",
-            "description": "true or false",
+            "name": "checkparam",
+            "description": "param of checkbox ( hasPA, playacoustic, hasmerch )",
             "required": true,
-            "type": "boolean"
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "state",
+            "description": "state of checkbox",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user when generated user signup or signin to application",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
