@@ -742,7 +742,23 @@
                         "type": "integer"
                       },
                       "instruments": {
-                        "type": "array"
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "detail": {
+                              "type": "string"
+                            },
+                            "hasChild": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
                       }
                     }
                   }
