@@ -3124,32 +3124,673 @@
         }
       }
     },
-    "push_notification_type": {
+    "push_notification_bundle": {
       "type": "object",
       "properties": {
-        "removed": {
-          "type": "string",
-          "description": "when band remove user."
+        "UserJoinNotification": {
+          "type": "object",
+          "description": "when user request to join band.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "JoinRequestPending"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "userinfo": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "surname": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "crypted_password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "fcm_register_id": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "bandinfo": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "type_id": {
+                      "type": "integer"
+                    },
+                    "hometown": {
+                      "type": "string"
+                    },
+                    "musicintensity": {
+                      "type": "integer"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "website": {
+                      "type": "string"
+                    },
+                    "music": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "hasPA": {
+                      "type": "boolean"
+                    },
+                    "playacoustic": {
+                      "type": "boolean"
+                    },
+                    "hasmerch": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "role": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "role": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
-        "mpksubmit": {
-          "type": "string",
-          "description": "when leader submit mpk"
+        "BandInviteNotification": {
+          "type": "object",
+          "description": "when band invite user.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "InviteRequestPending"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "userinfo": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "surname": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "crypted_password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "fcm_register_id": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "bandinfo": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "type_id": {
+                      "type": "integer"
+                    },
+                    "hometown": {
+                      "type": "string"
+                    },
+                    "musicintensity": {
+                      "type": "integer"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "website": {
+                      "type": "string"
+                    },
+                    "music": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "hasPA": {
+                      "type": "boolean"
+                    },
+                    "playacoustic": {
+                      "type": "boolean"
+                    },
+                    "hasmerch": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "role": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "role": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
-        "mpksuggest": {
-          "type": "string",
-          "description": "when user suggest gig"
+        "UserRemoveNotification": {
+          "type": "object",
+          "description": "when user removed from band.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "removed"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "userinfo": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "surname": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "crypted_password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "fcm_register_id": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "bandinfo": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "type_id": {
+                      "type": "integer"
+                    },
+                    "hometown": {
+                      "type": "string"
+                    },
+                    "musicintensity": {
+                      "type": "integer"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "website": {
+                      "type": "string"
+                    },
+                    "music": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "hasPA": {
+                      "type": "boolean"
+                    },
+                    "playacoustic": {
+                      "type": "boolean"
+                    },
+                    "hasmerch": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
-        "mpkapprove": {
-          "type": "string",
-          "description": "when venue approve mpk"
+        "MPKSubmitNotification": {
+          "type": "object",
+          "description": "when leader submit mpk.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "mpksubmit"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "giginfo": {
+                  "type": "object",
+                  "properties": {
+                    "gig_id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "capacity": {
+                      "type": "integer"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "gear": {
+                      "type": "string"
+                    },
+                    "merch": {
+                      "type": "string"
+                    },
+                    "term": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "integer"
+                    },
+                    "load": {
+                      "type": "string"
+                    },
+                    "door": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
-        "mpkreject": {
-          "type": "string",
-          "description": "when venue reject mpk"
+        "MPKSuggestNotification": {
+          "type": "object",
+          "description": "when band member suggest mpk",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "mpksuggest"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "giginfo": {
+                  "type": "object",
+                  "properties": {
+                    "gig_id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "capacity": {
+                      "type": "integer"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "gear": {
+                      "type": "string"
+                    },
+                    "merch": {
+                      "type": "string"
+                    },
+                    "term": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "integer"
+                    },
+                    "load": {
+                      "type": "string"
+                    },
+                    "door": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "suggesteduser": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "surname": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "crypted_password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "fcm_register_id": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
-        "venuenotifyontime": {
-          "type": "string",
-          "description": "notification from cron job"
+        "MPKApproveNotification": {
+          "type": "object",
+          "description": "when mpk approved.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "mpkapprove"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "giginfo": {
+                  "type": "object",
+                  "properties": {
+                    "gig_id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "capacity": {
+                      "type": "integer"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "gear": {
+                      "type": "string"
+                    },
+                    "merch": {
+                      "type": "string"
+                    },
+                    "term": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "integer"
+                    },
+                    "load": {
+                      "type": "string"
+                    },
+                    "door": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "MPKRejectNotification": {
+          "type": "object",
+          "description": "when mpk rejected.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "mpkreject"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "giginfo": {
+                  "type": "object",
+                  "properties": {
+                    "gig_id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "capacity": {
+                      "type": "integer"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "gear": {
+                      "type": "string"
+                    },
+                    "merch": {
+                      "type": "string"
+                    },
+                    "term": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "integer"
+                    },
+                    "load": {
+                      "type": "string"
+                    },
+                    "door": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DateEventNotification": {
+          "type": "object",
+          "description": "when today is some days before or after to performance.",
+          "properties": {
+            "notificaiton_type": {
+              "type": "string",
+              "value": "venuenotifyontime"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "giginfo": {
+                  "type": "object",
+                  "properties": {
+                    "gig_id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "capacity": {
+                      "type": "integer"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "gear": {
+                      "type": "string"
+                    },
+                    "merch": {
+                      "type": "string"
+                    },
+                    "term": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "integer"
+                    },
+                    "load": {
+                      "type": "string"
+                    },
+                    "door": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "venuestartdate": {
+                  "type": "string",
+                  "enum": [
+                    "onemonthafter",
+                    "twoweeksafter",
+                    "oneweekafter",
+                    "today",
+                    "oneweekbefore",
+                    "onedaybefore",
+                    "twodaybefore",
+                    "fivedaybefore"
+                  ]
+                }
+              }
+            }
+          }
         }
       }
     },
