@@ -8,7 +8,7 @@
       "email": "rgb92911.0.3@gmail.com"
     }
   },
-  "host": "ec2-13-59-54-5.us-east-2.compute.amazonaws.com:3000",
+  "host": "http://ec2-18-216-96-90.us-east-2.compute.amazonaws.com:3000/",
   "basePath": "/api",
   "tags": [
     {
@@ -20,36 +20,24 @@
       "description": "apis for band"
     },
     {
-      "name": "contract",
+      "name": "band_membership",
       "description": "apis for contract between users and bands"
     },
     {
-      "name": "gig",
-      "description": "apis for gigs"
-    },
-    {
-      "name": "slot",
-      "description": "apis for slots"
-    },
-    {
-      "name": "performance",
-      "description": "apis for performance"
-    },
-    {
-      "name": "report",
-      "description": "apis for report to performances"
-    },
-    {
-      "name": "rate",
-      "description": "apis for rate"
+      "name": "gig_contract",
+      "description": "contract between gig and band"
     },
     {
       "name": "instrument",
       "description": "apis for instrument"
     },
     {
-      "name": "role",
-      "description": "apis for role"
+      "name": "rate",
+      "description": "apis for rate"
+    },
+    {
+      "name": "venue",
+      "description": "apis related to venue"
     }
   ],
   "schemes": [
@@ -117,41 +105,140 @@
                   "example": true
                 },
                 "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/definitions/accounts"
                 },
                 "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Signin Usr",
+        "description": "User login to application.",
+        "operationId": "signin",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "description": "User email",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "description": "User password(when user signup via social info,not required)",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "provider",
+            "type": "string",
+            "enum": [
+              "original",
+              "facebook",
+              "google"
+            ],
+            "description": "provider where user signup by.(original, facebook, google)",
+            "required": true
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "account": {
+                  "$ref": "#definitions/accounts"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/photoUpload": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Upload user photo",
+        "description": "Upload user photo",
+        "operationId": "uploadPhoto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "photo",
+            "description": "user photo file name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "filename": {
+                  "type": "string",
+                  "description": "uploaded file name"
+                },
+                "message": {
                   "type": "string"
                 }
               }
@@ -182,9 +269,16 @@
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "first_name",
             "in": "formData",
-            "description": "name that need to be updated",
+            "description": "first name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "last_name",
+            "in": "formData",
+            "description": "last name of user",
             "required": true,
             "type": "string"
           },
@@ -271,14 +365,14 @@
         }
       }
     },
-    "/auth/photoUpload": {
+    "/band_membership/sendJoinRequest": {
       "post": {
         "tags": [
-          "auth"
+          "band_membership"
         ],
-        "summary": "Upload user photo",
-        "description": "Upload user photo",
-        "operationId": "uploadPhoto",
+        "summary": "send join request to band",
+        "description": "user send join request to band",
+        "operationId": "sendJoinRequest",
         "consumes": [
           "multipart/form-data"
         ],
@@ -288,10 +382,17 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "photo",
-            "description": "user photo file name",
+            "name": "band_id",
+            "description": "id of band user want to enter",
             "required": true,
-            "type": "string"
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "band_membership_id",
+            "description": "id of role user want to be",
+            "required": true,
+            "type": "integer"
           },
           {
             "in": "formData",
@@ -312,10 +413,6 @@
                   "format": "int64",
                   "example": true
                 },
-                "filename": {
-                  "type": "string",
-                  "description": "uploaded file name"
-                },
                 "message": {
                   "type": "string"
                 }
@@ -331,14 +428,14 @@
         }
       }
     },
-    "/auth/signin": {
+    "/band_membership/sendInviteRequest": {
       "post": {
         "tags": [
-          "auth"
+          "band_membership"
         ],
-        "summary": "Signin Usr",
-        "description": "User login to application.",
-        "operationId": "signin",
+        "summary": "send invite request to user",
+        "description": "send invite request to user",
+        "operationId": "sendInviteRequest",
         "consumes": [
           "multipart/form-data"
         ],
@@ -346,115 +443,26 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user want to enter",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "band_membership_id",
+            "description": "id of role user want to be",
+            "required": true,
+            "type": "integer"
+          },
           {
             "in": "formData",
             "name": "email",
-            "type": "string",
-            "description": "User email",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "password",
-            "type": "string",
-            "description": "User password(when user signup via social info,not required)",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "provider",
-            "type": "string",
-            "enum": [
-              "original",
-              "facebook",
-              "google"
-            ],
-            "description": "provider where user signup by.(original, facebook, google)",
-            "required": true
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "token": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/auth/setFcmRegisterToken": {
-      "post": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "update fcm token",
-        "description": "update fcm token",
-        "operationId": "setFcmRegisterToken",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "fcm_register_id",
-            "description": "fcm token",
+            "description": "email of user",
             "required": true,
-            "type": "file"
+            "type": "string"
           },
           {
             "in": "formData",
@@ -490,14 +498,14 @@
         }
       }
     },
-    "/auth/getProfile": {
+    "/band_membership/approveJoinRequest": {
       "post": {
         "tags": [
-          "auth"
+          "band_membership"
         ],
-        "summary": "Get profile of user",
-        "description": "Get profile of user",
-        "operationId": "getProfile",
+        "summary": "approve join request",
+        "description": "approve join request",
+        "operationId": "approveJoinRequest",
         "consumes": [
           "multipart/form-data"
         ],
@@ -505,6 +513,20 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user want to enter",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
           {
             "in": "formData",
             "name": "token",
@@ -524,42 +546,267 @@
                   "format": "int64",
                   "example": true
                 },
-                "account": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "surname": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "crypted_password": {
-                        "type": "string"
-                      },
-                      "role": {
-                        "type": "string"
-                      },
-                      "provider": {
-                        "type": "string"
-                      },
-                      "photo": {
-                        "type": "string"
-                      },
-                      "fcm_register_id": {
-                        "type": "string"
-                      },
-                      "phone_number": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band_membership/approveInviteRequest": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "user approve invite request",
+        "description": "user approve invite request",
+        "operationId": "approveInviteRequest",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user want to enter",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band_membership/declineByMember": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "member withdraw from band",
+        "description": "member withdraw from band",
+        "operationId": "declineByMember",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user withraw",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band_membership/denyByLeader": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "leader remove user from band",
+        "description": "leader remove user from band",
+        "operationId": "denyByLeader",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user denied",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band_membership/changeBandMembershipType": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "change user membership type",
+        "description": "change user membership type",
+        "operationId": "changeBandMembershipType",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user denied",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "band_membership_type_id",
+            "description": "id of band membership type",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
                 }
               }
             }
@@ -589,118 +836,13 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "format": "int64"
-                  },
-                  "type": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/band/bandState": {
-      "post": {
-        "tags": [
-          "band"
-        ],
-        "summary": "Get all band members in band",
-        "description": "Get all band members in band",
-        "operationId": "bandMembers",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "band_id",
-            "in": "formData",
-            "description": "ID of band to get memebers in",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "token",
-            "in": "formData",
-            "description": "token of current user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
               "type": "object",
               "properties": {
                 "result": {
                   "type": "integer",
-                  "format": "int64",
                   "example": true
                 },
-                "message": {
-                  "type": "string"
-                },
-                "current_userID": {
-                  "type": "integer"
-                },
-                "bandInfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "type_id": {
-                      "type": "integer",
-                      "description": "band type"
-                    },
-                    "hometown": {
-                      "type": "string"
-                    },
-                    "musicintensity": {
-                      "type": "integer"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "website": {
-                      "type": "string"
-                    },
-                    "music": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "hasPA": {
-                      "type": "boolean"
-                    },
-                    "playacoustic": {
-                      "type": "boolean"
-                    },
-                    "hasmerch": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "members": {
+                "bandTypes": {
                   "type": "array",
                   "items": {
                     "properties": {
@@ -708,57 +850,8 @@
                         "type": "integer",
                         "format": "int64"
                       },
-                      "name": {
+                      "type": {
                         "type": "string"
-                      },
-                      "surname": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "crypted_password": {
-                        "type": "string"
-                      },
-                      "role": {
-                        "type": "string"
-                      },
-                      "provider": {
-                        "type": "string"
-                      },
-                      "photo": {
-                        "type": "string"
-                      },
-                      "status": {
-                        "type": "string"
-                      },
-                      "user_id": {
-                        "type": "integer"
-                      },
-                      "band_id": {
-                        "type": "integer"
-                      },
-                      "role_id": {
-                        "type": "integer"
-                      },
-                      "instruments": {
-                        "type": "array",
-                        "items": {
-                          "properties": {
-                            "id": {
-                              "type": "integer"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "detail": {
-                              "type": "string"
-                            },
-                            "hasChild": {
-                              "type": "boolean"
-                            }
-                          }
-                        }
                       }
                     }
                   }
@@ -793,13 +886,6 @@
           },
           {
             "in": "formData",
-            "name": "type_id",
-            "description": "id of band type (you can get this from /band/bandTypes)",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
             "name": "genre",
             "description": "genre of band as string separated by commas. Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
             "required": true,
@@ -814,7 +900,7 @@
           },
           {
             "in": "formData",
-            "name": "musicintensity",
+            "name": "music_intensity",
             "description": "music intensity as number",
             "required": true,
             "type": "string"
@@ -828,8 +914,15 @@
           },
           {
             "in": "formData",
-            "name": "website",
+            "name": "website_url",
             "description": "url of band homepage",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "band_type_id",
+            "description": "band type id",
             "required": true,
             "type": "string"
           },
@@ -852,56 +945,8 @@
                   "format": "int64",
                   "example": true
                 },
-                "band": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "type_id": {
-                      "type": "integer",
-                      "description": "band type"
-                    },
-                    "hometown": {
-                      "type": "string"
-                    },
-                    "musicintensity": {
-                      "type": "integer"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "website": {
-                      "type": "string"
-                    },
-                    "music": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "hasPA": {
-                      "type": "boolean"
-                    },
-                    "playacoustic": {
-                      "type": "boolean"
-                    },
-                    "hasmerch": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "contract_id": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": 1
+                "new_band": {
+                  "$ref": "#definitions/bands"
                 },
                 "message": {
                   "type": "string",
@@ -946,50 +991,18 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "format": "int64"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "genre": {
-                    "type": "string"
-                  },
-                  "type_id": {
-                    "type": "integer",
-                    "description": "band type"
-                  },
-                  "hometown": {
-                    "type": "string"
-                  },
-                  "musicintensity": {
-                    "type": "integer"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "website": {
-                    "type": "string"
-                  },
-                  "music": {
-                    "type": "string"
-                  },
-                  "photo": {
-                    "type": "string"
-                  },
-                  "hasPA": {
-                    "type": "boolean"
-                  },
-                  "playacoustic": {
-                    "type": "boolean"
-                  },
-                  "hasmerch": {
-                    "type": "boolean"
-                  }
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "bands": {
+                  "$ref": "#/definitions/bands"
                 }
               }
             }
@@ -997,14 +1010,14 @@
         }
       }
     },
-    "/band/setBandMusic": {
+    "/band/bandState": {
       "post": {
         "tags": [
           "band"
         ],
-        "summary": "upload band music file",
-        "description": "upload band music file",
-        "operationId": "setBandMusic",
+        "summary": "Get all band members in band",
+        "description": "Get all band members in band",
+        "operationId": "bandMembers",
         "consumes": [
           "multipart/form-data"
         ],
@@ -1013,22 +1026,16 @@
         ],
         "parameters": [
           {
-            "in": "formData",
             "name": "band_id",
-            "description": "id of band",
-            "required": true,
-            "type": "integer"
-          },
-          {
             "in": "formData",
-            "name": "music",
-            "description": "band music file",
+            "description": "ID of band to get memebers in",
             "required": true,
-            "type": "file"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "responses": {
-          "success": {
+          "200": {
             "description": "successful operation",
             "schema": {
               "type": "object",
@@ -1040,27 +1047,81 @@
                 },
                 "message": {
                   "type": "string"
+                },
+                "bandInfo": {
+                  "$ref": "#/definitions/bands"
+                },
+                "members": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "name of band member ship"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      },
+                      "encrypted_password": {
+                        "type": "string"
+                      },
+                      "band_mambership_type_id": {
+                        "type": "string"
+                      },
+                      "provider": {
+                        "type": "string"
+                      },
+                      "fcm_register_id": {
+                        "type": "string"
+                      },
+                      "photo_url": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "account_id": {
+                        "type": "integer"
+                      },
+                      "band_id": {
+                        "type": "integer"
+                      },
+                      "band_membership_id": {
+                        "type": "integer"
+                      },
+                      "instruments": {
+                        "$ref": "#/definitions/instruments"
+                      }
+                    }
+                  }
                 }
               }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
             }
           }
         }
       }
     },
-    "/band/setBandImage": {
+    "/band/uploadBandPhoto": {
       "post": {
         "tags": [
           "band"
         ],
         "summary": "upload band image file",
         "description": "upload band image file",
-        "operationId": "setBandImage",
+        "operationId": "uploadBandPhoto",
         "consumes": [
           "multipart/form-data"
         ],
@@ -1077,7 +1138,7 @@
           },
           {
             "in": "formData",
-            "name": "image",
+            "name": "band_photo",
             "description": "band image file",
             "required": true,
             "type": "file"
@@ -1109,6 +1170,117 @@
         }
       }
     },
+    "/band/getBandsOfMember": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "get all bands user registered",
+        "description": "get all bands user registered",
+        "operationId": "getBandsOfMember",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "token",
+            "type": "string",
+            "description": "token to authenticate user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "result": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": true
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "bandsOfMember": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "contract id"
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "current status of user and band contract"
+                      },
+                      "account_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "user id"
+                      },
+                      "band_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "band id"
+                      },
+                      "band_membership_type_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "membership type id"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "band_type_id": {
+                        "type": "integer",
+                        "description": "type of band"
+                      },
+                      "genre": {
+                        "type": "string"
+                      },
+                      "hometown": {
+                        "type": "string"
+                      },
+                      "music_intensity": {
+                        "type": "integer"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "website_url": {
+                        "type": "string"
+                      },
+                      "audio_file_id": {
+                        "type": "string"
+                      },
+                      "photo": {
+                        "type": "string"
+                      },
+                      "haspa": {
+                        "type": "boolean"
+                      },
+                      "playacoustic": {
+                        "type": "boolean"
+                      },
+                      "hasmerch": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/band/setBandService": {
       "post": {
         "tags": [
@@ -1133,24 +1305,17 @@
           },
           {
             "in": "formData",
-            "name": "checkparam",
+            "name": "bandservice",
             "description": "param of checkbox ( hasPA, playacoustic, hasmerch )",
             "required": true,
             "type": "string"
           },
           {
             "in": "formData",
-            "name": "state",
+            "name": "available",
             "description": "state of checkbox",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of user when generated user signup or signin to application",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -1179,667 +1344,13 @@
         }
       }
     },
-    "/band/getLinkedBands": {
+    "/gig_contract/submitMPK": {
       "post": {
         "tags": [
-          "band"
+          "gig_contract"
         ],
-        "summary": "get all bands user registered",
-        "description": "get all bands user registered",
-        "operationId": "getLinkedBands",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "token",
-            "type": "string",
-            "description": "token to authenticate user",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "description": "contract id"
-                  },
-                  "status": {
-                    "type": "string",
-                    "description": "current status of user and band contract"
-                  },
-                  "user_id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "description": "user id"
-                  },
-                  "band_id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "description": "band id"
-                  },
-                  "role_id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "description": "role id"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "type_id": {
-                    "type": "integer",
-                    "description": "type of band"
-                  },
-                  "genre": {
-                    "type": "string"
-                  },
-                  "hometown": {
-                    "type": "string"
-                  },
-                  "musicintensity": {
-                    "type": "integer"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "website": {
-                    "type": "string"
-                  },
-                  "music": {
-                    "type": "string"
-                  },
-                  "photo": {
-                    "type": "string"
-                  },
-                  "hasPA": {
-                    "type": "boolean"
-                  },
-                  "playacoustic": {
-                    "type": "boolean"
-                  },
-                  "hasmerch": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/contract/sendJoinRequest": {
-      "post": {
-        "tags": [
-          "contract"
-        ],
-        "summary": "send join request to band",
-        "description": "user send join request to band",
-        "operationId": "sendJoinRequest",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band user want to enter",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "role_id",
-            "description": "id of role user want to be",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of current user",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "contract_id": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/contract/sendInviteRequest": {
-      "post": {
-        "tags": [
-          "contract"
-        ],
-        "summary": "send invite request to user",
-        "description": "band send invite request to user",
-        "operationId": "sendInviteRequest",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band user want to enter",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "role_id",
-            "description": "id of role user want to be",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "email",
-            "description": "search email to invite",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of current user",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "contract_id": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "band_id": {
-                  "type": "integer"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "role_id": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/contract/approveJoinRequest": {
-      "post": {
-        "tags": [
-          "contract"
-        ],
-        "summary": "band leader approve user's pending reqeust to join band",
-        "description": "approve user's pending join request",
-        "operationId": "approveJoinRequest",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "formData",
-            "description": "users current token to verfify authentication",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "contract_id",
-            "in": "formData",
-            "description": "id of contract",
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/contract/approveInviteRequest": {
-      "post": {
-        "tags": [
-          "contract"
-        ],
-        "summary": "user accept band invitation",
-        "description": "approve pending invite request of band",
-        "operationId": "approveInviteRequest",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "formData",
-            "description": "users current token to verfify authentication",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "contract_id",
-            "in": "formData",
-            "description": "id of contract",
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/gig/createGig": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "create new gig",
-        "description": "create new gig",
-        "operationId": "createGig",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "title",
-            "description": "title of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "address",
-            "description": "address of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "capacity",
-            "description": "capacity of gig",
-            "type": "integer",
-            "format": "int64",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "age",
-            "description": "age of user to take gig",
-            "type": "integer",
-            "format": "int64",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "load",
-            "in": "formData",
-            "description": "time to load (ex 18:00)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "door",
-            "description": "time when gig open door (ex 17:00)",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "gear",
-            "description": "gear of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "merch",
-            "description": "merch of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "price",
-            "description": "price to take gig",
-            "type": "integer",
-            "format": "int64",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "term",
-            "description": "term of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "lat",
-            "description": "latitude of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          },
-          {
-            "name": "long",
-            "description": "longitude of gig",
-            "type": "string",
-            "required": true,
-            "in": "formData"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "gig_id": {
-                  "type": "integer",
-                  "description": "created gig's id"
-                },
-                "message": {
-                  "type": "string",
-                  "example": "New gig created succesfully"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/gig/searchGig": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "search gigs according to search fields",
-        "description": "search availabe gigs according to search terms",
-        "operationId": "searchGig",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "parameters": [
-          {
-            "name": "startDay",
-            "in": "formData",
-            "description": "from date when gig available (ex 2017-11-16)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "endDay",
-            "in": "formData",
-            "description": "to date when gig available (ex 2017-11-17",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "lat",
-            "in": "formData",
-            "description": "latitude of gig (ex 42.388294)",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "long",
-            "in": "formData",
-            "description": "longitude of gig (ex 71.103795)",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "unit",
-            "in": "formData",
-            "description": "unit of distance (miles, kms, nms, meters)",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "radio",
-            "in": "formData",
-            "description": "radio of distance",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Invalid ID supplied",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                },
-                "gigs": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "gig": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "integer"
-                          },
-                          "title": {
-                            "type": "string"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
-                          "capacity": {
-                            "type": "integer"
-                          },
-                          "age": {
-                            "type": "integer"
-                          },
-                          "gear": {
-                            "type": "string"
-                          },
-                          "merch": {
-                            "type": "string"
-                          },
-                          "term": {
-                            "type": "string"
-                          },
-                          "long": {
-                            "type": "string"
-                          },
-                          "lat": {
-                            "type": "string"
-                          },
-                          "price": {
-                            "type": "integer"
-                          },
-                          "load": {
-                            "type": "string"
-                          },
-                          "door": {
-                            "type": "string"
-                          },
-                          "photo": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "slots": {
-                        "type": "array",
-                        "items": {
-                          "properties": {
-                            "id": {
-                              "type": "integer"
-                            },
-                            "from": {
-                              "type": "string"
-                            },
-                            "to": {
-                              "type": "string"
-                            },
-                            "gig_id": {
-                              "type": "integer"
-                            },
-                            "band_id": {
-                              "type": "integer"
-                            },
-                            "slot_id": {
-                              "type": "integer"
-                            },
-                            "status": {
-                              "type": "string"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/gig/submitMPK": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "submitMPK to gig",
-        "description": "submit approve request to gig",
+        "summary": "submit mpk",
+        "description": "submit mpk",
         "operationId": "submitMPK",
         "consumes": [
           "multipart/form-data"
@@ -1850,146 +1361,24 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "slot_id",
-            "description": "id of slot available",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
             "name": "band_id",
-            "description": "id of band leader that are going to take performance",
+            "description": "id of band",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
-            "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/gig/suggestGig": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "submitMPK to gig",
-        "description": "submit approve request to gig",
-        "operationId": "submitMPK",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "slot_id",
-            "description": "id of slot available",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band leader that are going to take performance",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "performance_id": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/gig/setGigImage": {
-      "post": {
-        "tags": [
-          "gig"
-        ],
-        "summary": "upload gig image file",
-        "description": "upload gig image file",
-        "operationId": "setGigImage",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "band_id",
+            "name": "gig_id",
             "description": "id of gig",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
-            "name": "image",
-            "description": "gig image file",
+            "name": "token",
+            "description": "token for auth",
             "required": true,
-            "type": "file"
+            "type": "string"
           }
         ],
         "responses": {
@@ -2018,14 +1407,14 @@
         }
       }
     },
-    "/slot/createSlot": {
+    "/gig_contract/suggestMPK": {
       "post": {
         "tags": [
-          "slot"
+          "gig_contract"
         ],
-        "summary": "create new slot",
-        "description": "create new slot",
-        "operationId": "createSlot",
+        "summary": "suggest mpk",
+        "description": "suggest mpk",
+        "operationId": "suggestMPK",
         "consumes": [
           "multipart/form-data"
         ],
@@ -2035,24 +1424,24 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "from",
-            "description": "datetime when to start performance (ex 2017-11-16 8:30:00)",
+            "name": "band_id",
+            "description": "id of band",
             "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "to",
-            "description": "datetime when to end performance (ex 2017-11-16 9:30:00)",
-            "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "in": "formData",
             "name": "gig_id",
-            "description": "id of gig where to take performance",
+            "description": "id of gig",
             "required": true,
             "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token for auth",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -2065,9 +1454,6 @@
                   "type": "integer",
                   "format": "int64",
                   "example": true
-                },
-                "slot_id": {
-                  "type": "integer"
                 },
                 "message": {
                   "type": "string"
@@ -2084,14 +1470,14 @@
         }
       }
     },
-    "/slot/getSlotsOnMonth": {
+    "/gig_contract/approveMPK": {
       "post": {
         "tags": [
-          "slot"
+          "gig_contract"
         ],
-        "summary": "get slots related bank in specific month",
-        "description": "get slots related bank in specific month",
-        "operationId": "getSlotsOnMonth",
+        "summary": "approveMPK",
+        "description": "approveMPK",
+        "operationId": "approveMPK",
         "consumes": [
           "multipart/form-data"
         ],
@@ -2108,186 +1494,15 @@
           },
           {
             "in": "formData",
-            "name": "year",
-            "description": "year (ex 2017)",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "month",
-            "description": "month (ex 11)",
+            "name": "gig_id",
+            "description": "id of gig",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
             "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  },
-                  "from": {
-                    "type": "string"
-                  },
-                  "to": {
-                    "type": "string"
-                  },
-                  "gig_id": {
-                    "type": "integer"
-                  },
-                  "band_id": {
-                    "type": "integer"
-                  },
-                  "slot_id": {
-                    "type": "integer"
-                  },
-                  "status": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/slot/getSlotsOnDay": {
-      "post": {
-        "tags": [
-          "slot"
-        ],
-        "summary": "get gig in from specific day",
-        "description": "get slots related bank in specific month",
-        "operationId": "getGigOnDay",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "selDate",
-            "description": "date (ex 2017-11-16)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "slot_id": {
-                    "type": "integer"
-                  },
-                  "from": {
-                    "type": "string"
-                  },
-                  "to": {
-                    "type": "string"
-                  },
-                  "gig_id": {
-                    "type": "integer"
-                  },
-                  "id": {
-                    "type": "integer",
-                    "description": "same as gig_id"
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "address": {
-                    "type": "string"
-                  },
-                  "capacity": {
-                    "type": "integer"
-                  },
-                  "age": {
-                    "type": "integer"
-                  },
-                  "gear": {
-                    "type": "string"
-                  },
-                  "merch": {
-                    "type": "string"
-                  },
-                  "term": {
-                    "type": "string"
-                  },
-                  "long": {
-                    "type": "string"
-                  },
-                  "lat": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "integer"
-                  },
-                  "load": {
-                    "type": "string"
-                  },
-                  "door": {
-                    "type": "string"
-                  },
-                  "photo": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/performance/setStatusOfPerform": {
-      "post": {
-        "tags": [
-          "slot"
-        ],
-        "summary": "set status of performance",
-        "description": "set status of performance",
-        "operationId": "setStatusOfPerform",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "perform_id",
-            "description": "id of performance what should be changed",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "result",
-            "description": "status of performance. it show whether gig approved band request or not.",
+            "description": "token for auth",
             "required": true,
             "type": "string"
           }
@@ -2302,192 +1517,6 @@
                   "type": "integer",
                   "format": "int64",
                   "example": true
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "faild operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/performance/getPerformHistory": {
-      "post": {
-        "tags": [
-          "slot"
-        ],
-        "summary": "get performance history",
-        "description": "get performance history",
-        "operationId": "getPerformHistory",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "to",
-            "description": "date (ex 2017-11-19)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "from",
-            "description": "date (ex 2017-11-16)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "band_id",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "description": "performance id"
-                  },
-                  "band_id": {
-                    "type": "integer",
-                    "description": "band id"
-                  },
-                  "slot_id": {
-                    "type": "integer"
-                  },
-                  "status": {
-                    "type": "string"
-                  },
-                  "from": {
-                    "type": "string"
-                  },
-                  "to": {
-                    "type": "string"
-                  },
-                  "gig_id": {
-                    "type": "integer"
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "address": {
-                    "type": "string"
-                  },
-                  "capacity": {
-                    "type": "integer"
-                  },
-                  "age": {
-                    "type": "integer"
-                  },
-                  "gear": {
-                    "type": "string"
-                  },
-                  "merch": {
-                    "type": "string"
-                  },
-                  "term": {
-                    "type": "string"
-                  },
-                  "long": {
-                    "type": "string"
-                  },
-                  "lat": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "integer"
-                  },
-                  "load": {
-                    "type": "string"
-                  },
-                  "door": {
-                    "type": "string"
-                  },
-                  "photo": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/report/report": {
-      "post": {
-        "tags": [
-          "report"
-        ],
-        "summary": "report performance they did",
-        "description": "report performance they did",
-        "operationId": "report",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "slot_id",
-            "description": "id of slot",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "content",
-            "description": "report content",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "report_id": {
-                  "type": "integer"
                 },
                 "message": {
                   "type": "string"
@@ -2504,14 +1533,14 @@
         }
       }
     },
-    "/rate/setRate": {
+    "/gig_contract/rejectMPK": {
       "post": {
         "tags": [
-          "rate"
+          "gig_contract"
         ],
-        "summary": "set rate to slot what they taken",
-        "description": "set rate to slot what they taken",
-        "operationId": "setRate",
+        "summary": "rejectMPK",
+        "description": "rejectMPK",
+        "operationId": "rejectMPK",
         "consumes": [
           "multipart/form-data"
         ],
@@ -2519,227 +1548,93 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "formData",
-            "name": "slot_id",
-            "description": "id of slot",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "rate",
-            "description": "rate array as string separated by commas (ex 1,2,1,3,2,4)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "token",
-            "description": "token of user to verify authentication",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "rate_id": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/instrument/createInstrument": {
-      "post": {
-        "tags": [
-          "instrument"
-        ],
-        "summary": "create new instrument",
-        "description": "create new instrument",
-        "operationId": "createInstrument",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "root",
-            "description": "category instrument id",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "title",
-            "description": "title of instrument",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "detail",
-            "description": "detailed description for instrument",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "hasChild",
-            "description": "notify if this instrument has child category instrument",
-            "required": true,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "instrument_id": {
-                  "type": "integer"
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/instrument/getInstrumentByRoot": {
-      "post": {
-        "tags": [
-          "instrument"
-        ],
-        "summary": "get instrument by category",
-        "description": "get instrument by category",
-        "operationId": "getInstrumentByRoot",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "root",
-            "description": "category instrument id",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                },
-                "instruments": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "root": {
-                        "type": "integer"
-                      },
-                      "detail": {
-                        "type": "string"
-                      },
-                      "hasChild": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/instrument/getInstrumentByUser": {
-      "post": {
-        "tags": [
-          "instrument"
-        ],
-        "summary": "get instrument by user",
-        "description": "get instrument by user",
-        "operationId": "getInstrumentByUser",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "user_id",
-            "description": "id of user",
-            "required": true,
-            "type": "integer"
-          },
           {
             "in": "formData",
             "name": "band_id",
             "description": "id of band",
             "required": true,
             "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token for auth",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
-          "200": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/gig_contract/searchGig": {
+      "post": {
+        "tags": [
+          "gig_contract"
+        ],
+        "summary": "searchGig",
+        "description": "searchGig",
+        "operationId": "searchGig",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token for auth",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
             "description": "successful operation",
             "schema": {
               "type": "object",
@@ -2752,17 +1647,210 @@
                 "message": {
                   "type": "string"
                 },
-                "instruments": {
+                "gig_contracts": {
                   "type": "array",
                   "items": {
                     "properties": {
-                      "id": {
-                        "type": "integer"
+                      "venue": {
+                        "$ref": "#/definitions/venues"
+                      },
+                      "gigs": {
+                        "type": "object",
+                        "properties": {
+                          "available": {
+                            "type": "boolean"
+                          },
+                          "confirmed_bandname": {
+                            "type": "string"
+                          },
+                          "age_restriction": {
+                            "type": "integer"
+                          },
+                          "load_in_time": {
+                            "type": "time"
+                          },
+                          "doors_open_time": {
+                            "type": "time"
+                          },
+                          "venue_id": {
+                            "type": "integer"
+                          },
+                          "show_date": {
+                            "type": "date"
+                          },
+                          "term": {
+                            "type": "string"
+                          },
+                          "show_id": {
+                            "type": "integer"
+                          },
+                          "compensation": {
+                            "type": "integer"
+                          },
+                          "from_time": {
+                            "type": "time"
+                          },
+                          "to_time": {
+                            "type": "time"
+                          }
+                        }
                       }
                     }
                   }
                 }
               }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/gig_contract/getGigContractsOfMonth": {
+      "post": {
+        "tags": [
+          "gig_contract"
+        ],
+        "summary": "searchGig",
+        "description": "searchGig",
+        "operationId": "searchGig",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token for auth",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "gig_contracts": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "show": {
+                        "type": "object",
+                        "properties": {
+                          "venuename": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "long": {
+                            "type": "float"
+                          },
+                          "lat": {
+                            "type": "float"
+                          },
+                          "profile_image_url": {
+                            "type": "string"
+                          },
+                          "default_age_restriction": {
+                            "type": "integer"
+                          },
+                          "gear_provided_by_venue": {
+                            "type": "string"
+                          },
+                          "capacity": {
+                            "type": "integer"
+                          },
+                          "age_restriction": {
+                            "type": "integer"
+                          },
+                          "load_in_time": {
+                            "type": "time"
+                          },
+                          "doors_open_time": {
+                            "type": "time"
+                          },
+                          "venue_id": {
+                            "type": "integer"
+                          },
+                          "show_date": {
+                            "type": "date"
+                          }
+                        }
+                      },
+                      "show_date": {
+                        "type": "date"
+                      },
+                      "gigs_contract": {
+                        "type": "object",
+                        "properties": {
+                          "available": {
+                            "type": "boolean"
+                          },
+                          "band_name": {
+                            "type": "string"
+                          },
+                          "gig_id": {
+                            "type": "integer"
+                          },
+                          "term": {
+                            "type": "string"
+                          },
+                          "show_id": {
+                            "type": "integer"
+                          },
+                          "compensation": {
+                            "type": "integer"
+                          },
+                          "from_time": {
+                            "type": "time"
+                          },
+                          "to_time": {
+                            "type": "time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
             }
           }
         }
@@ -2806,13 +1894,10 @@
                       "id": {
                         "type": "integer"
                       },
-                      "title": {
+                      "name": {
                         "type": "string"
                       },
-                      "detail": {
-                        "type": "string"
-                      },
-                      "hasChild": {
+                      "haschild": {
                         "type": "integer",
                         "format": "int64",
                         "example": true
@@ -2829,72 +1914,7 @@
         }
       }
     },
-    "/instrument/searchInstrument": {
-      "post": {
-        "tags": [
-          "instrument"
-        ],
-        "summary": "search instrument with name",
-        "description": "get instrument including search term in the title of instrument",
-        "operationId": "searchInstrument",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "searchTerm",
-            "description": "search term",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "message": {
-                  "type": "string"
-                },
-                "instruments": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "title": {
-                        "type": "string"
-                      },
-                      "root": {
-                        "type": "integer"
-                      },
-                      "detail": {
-                        "type": "string"
-                      },
-                      "hasChild": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/instrument/setInstrumentToUser": {
+    "/instrument/setBandMemberInstrument": {
       "post": {
         "tags": [
           "instrument"
@@ -2911,22 +1931,22 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "band_id",
-            "description": "band id",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "user_id",
-            "description": "id of user",
+            "name": "band_member_ship_id",
+            "description": "band_member_ship_id",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
             "name": "instrument_id",
-            "description": "instrument id",
+            "description": "instrument_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "number_outputs",
+            "description": "number_outputs",
             "required": true,
             "type": "integer"
           },
@@ -2939,17 +1959,17 @@
           },
           {
             "in": "formData",
-            "name": "count",
-            "description": "count of instrument",
+            "name": "stage_plot_x",
+            "description": "stage_plot_x",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
-            "name": "token",
-            "description": "user token whom to get instrument",
+            "name": "stage_plot_y",
+            "description": "stage_plot_y",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
@@ -2966,7 +1986,7 @@
                 "message": {
                   "type": "string"
                 },
-                "instrument_id": {
+                "newmemberinstrument_id": {
                   "type": "integer"
                 }
               }
@@ -2981,20 +2001,80 @@
         }
       }
     },
-    "/role/getRoles": {
-      "get": {
+    "/rate/setVenueRating": {
+      "post": {
         "tags": [
-          "role"
+          "rate"
         ],
-        "summary": "get all roles as array",
-        "description": "get all roles as array",
-        "operationId": "getRoles",
+        "summary": "set rate to venue what they taken",
+        "description": "set rate to venue what they taken",
+        "operationId": "setVenueRating",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "produces": [
           "application/json"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "communication_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "promotion_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "audience_turnout_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "performane_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "venue_profile_accuracy_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "play_here_again_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "review",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user to verify authentication",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "200": {
+          "success": {
             "description": "successful operation",
             "schema": {
               "type": "object",
@@ -3004,24 +2084,441 @@
                   "format": "int64",
                   "example": true
                 },
+                "newvenuerate": {
+                  "$ref": "#/definitions/venue_ratings"
+                },
                 "message": {
                   "type": "string"
-                },
-                "roles": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "id": {
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "role": {
-                        "type": "string"
-                      }
-                    }
-                  }
                 }
               }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/rate/setArtistRating": {
+      "post": {
+        "tags": [
+          "rate"
+        ],
+        "summary": "set rate to artist what they taken",
+        "description": "set rate to artist what they taken",
+        "operationId": "setArtistRating",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "communication_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "promotion_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "audience_turnout_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "performane_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "venue_profile_accuracy_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "play_here_again_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "review",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user to verify authentication",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "newvenuerate": {
+                  "$ref": "#/definitions/artist_ratings"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/rate/getGigHistory": {
+      "post": {
+        "tags": [
+          "rate"
+        ],
+        "summary": "get history of gig taken by band",
+        "description": "get history of gig taken by band",
+        "operationId": "getGigHistory",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "fromDate",
+            "description": "id of gig",
+            "required": true,
+            "type": "date"
+          },
+          {
+            "in": "formData",
+            "name": "toDate",
+            "required": true,
+            "type": "date"
+          },
+          {
+            "in": "formData",
+            "name": "band_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "history": {
+                  "type": "object",
+                  "properties": {
+                    "venuename": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "show_date": {
+                      "type": "date"
+                    },
+                    "compensation": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/venue/newVenue": {
+      "post": {
+        "tags": [
+          "venue"
+        ],
+        "summary": "create new venue",
+        "description": "create new venue",
+        "operationId": "newVenue",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "venuename",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "address",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "long",
+            "required": true,
+            "type": "float"
+          },
+          {
+            "in": "formData",
+            "name": "lat",
+            "required": true,
+            "type": "float"
+          },
+          {
+            "in": "formData",
+            "name": "profile_image_url",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "default_age_restriction",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "gear_provided_by_venue",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "capacity",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "venue": {
+                  "$ref": "#/definitions/venues"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/venue/newShow": {
+      "post": {
+        "tags": [
+          "venue"
+        ],
+        "summary": "create new Show",
+        "description": "create new Show",
+        "operationId": "newShow",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "show_date",
+            "required": true,
+            "type": "date"
+          },
+          {
+            "in": "formData",
+            "name": "age_restriction",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "load_in_time",
+            "required": true,
+            "type": "time"
+          },
+          {
+            "in": "formData",
+            "name": "doors_open_time",
+            "required": true,
+            "type": "time"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "venue": {
+                  "$ref": "#/definitions/shows"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/venue/newGig": {
+      "post": {
+        "tags": [
+          "venue"
+        ],
+        "summary": "create new Show",
+        "description": "create new Show",
+        "operationId": "newShow",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "term",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "show_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "compensation",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "from_time",
+            "required": true,
+            "type": "time"
+          },
+          {
+            "in": "formData",
+            "name": "to_time",
+            "required": true,
+            "type": "time"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "venue": {
+                  "$ref": "#/definitions/gigs"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
             }
           }
         }
@@ -3029,772 +2526,389 @@
     }
   },
   "definitions": {
-    "provider": {
-      "type": "string",
-      "enum": [
-        "original",
-        "facebook",
-        "google"
-      ]
-    },
-    "userRoles": {
-      "type": "string",
-      "enum": [
-        "leader",
-        "part_time",
-        "full_time"
-      ]
-    },
-    "errorCode": {
+    "accounts": {
       "type": "object",
       "properties": {
-        "00001": {
-          "type": "string",
-          "description": "sever_error"
+        "first_name": {
+          "type": "string"
         },
-        "00002": {
-          "type": "string",
-          "description": "duplicated_field"
+        "last_name": {
+          "type": "string"
         },
-        "00003": {
-          "type": "string",
-          "description": "invalid_authentication, or have no right"
+        "email": {
+          "type": "string"
         },
-        "00004": {
-          "type": "string",
-          "description": "no_result"
+        "phone_number": {
+          "type": "string"
         },
-        "00005": {
-          "type": "string",
-          "description": "already taken"
+        "photo_url": {
+          "type": "string"
         },
-        "00006": {
-          "type": "string",
-          "description": "invalid_email"
+        "encrypted_password": {
+          "type": "string"
         },
-        "00007": {
-          "type": "string",
-          "description": "invalid_phonenumber"
+        "provider": {
+          "$ref": "#definitions/account_provider"
+        },
+        "fcm_register_id": {
+          "type": "string"
         }
       }
     },
-    "user_status": {
+    "bands": {
       "type": "object",
       "properties": {
-        "created": {
-          "type": "string",
-          "description": "when user is leader of band"
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
-        "JoinRequestPending": {
-          "type": "string",
-          "description": "when user join request is pending status"
+        "name": {
+          "type": "string"
         },
-        "approvedJoinRequest": {
-          "type": "string",
-          "description": "when user join request was approved"
+        "genre": {
+          "type": "string"
         },
-        "InviteRequestPending": {
-          "type": "string",
-          "description": "when user get invite from band.(not approved)"
+        "hometown": {
+          "type": "string"
         },
-        "approvedInviteRequest": {
-          "type": "string",
-          "description": "when user approved band invite"
+        "music_intensity": {
+          "type": "integer"
+        },
+        "photo_url": {
+          "type": "string"
+        },
+        "haspa": {
+          "type": "boolean"
+        },
+        "playacoustic": {
+          "type": "boolean"
+        },
+        "hasmerch": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "website_url": {
+          "type": "string"
+        },
+        "band_type_id": {
+          "type": "integer"
+        },
+        "audio_file_id": {
+          "type": "integer"
         }
       }
     },
-    "performance_status": {
+    "instruments": {
       "type": "object",
       "properties": {
-        "pending": {
-          "type": "string",
-          "description": "when submitted mpk is pending status"
+        "id": {
+          "type": "integer"
         },
-        "approved": {
-          "type": "string",
-          "description": "when submitted mpk is approved"
+        "name": {
+          "type": "string"
         },
-        "rejected": {
-          "type": "string",
-          "description": "when submitted mpk is rejected"
+        "parent_instrument_id": {
+          "type": "integer"
         },
-        "suggested": {
-          "type": "string",
-          "description": "when submitted mpk is suggested"
+        "haschild": {
+          "type": "boolean"
         }
       }
     },
-    "push_notification_bundle": {
+    "venues": {
       "type": "object",
       "properties": {
-        "UserJoinNotification": {
-          "type": "object",
-          "description": "when user request to join band.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "JoinRequestPending"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "userinfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "bandinfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "type_id": {
-                      "type": "integer"
-                    },
-                    "hometown": {
-                      "type": "string"
-                    },
-                    "musicintensity": {
-                      "type": "integer"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "website": {
-                      "type": "string"
-                    },
-                    "music": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "hasPA": {
-                      "type": "boolean"
-                    },
-                    "playacoustic": {
-                      "type": "boolean"
-                    },
-                    "hasmerch": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "role": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "role": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "id": {
+          "type": "integer"
         },
-        "BandInviteNotification": {
-          "type": "object",
-          "description": "when band invite user.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "InviteRequestPending"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "userinfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "bandinfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "type_id": {
-                      "type": "integer"
-                    },
-                    "hometown": {
-                      "type": "string"
-                    },
-                    "musicintensity": {
-                      "type": "integer"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "website": {
-                      "type": "string"
-                    },
-                    "music": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "hasPA": {
-                      "type": "boolean"
-                    },
-                    "playacoustic": {
-                      "type": "boolean"
-                    },
-                    "hasmerch": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "role": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "role": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "venuename": {
+          "type": "string"
         },
-        "UserRemoveNotification": {
-          "type": "object",
-          "description": "when user removed from band.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "removed"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "userinfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "bandinfo": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "genre": {
-                      "type": "string"
-                    },
-                    "type_id": {
-                      "type": "integer"
-                    },
-                    "hometown": {
-                      "type": "string"
-                    },
-                    "musicintensity": {
-                      "type": "integer"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "website": {
-                      "type": "string"
-                    },
-                    "music": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "hasPA": {
-                      "type": "boolean"
-                    },
-                    "playacoustic": {
-                      "type": "boolean"
-                    },
-                    "hasmerch": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "address": {
+          "type": "string"
         },
-        "MPKSubmitNotification": {
-          "type": "object",
-          "description": "when leader submit mpk.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "mpksubmit"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "giginfo": {
-                  "type": "object",
-                  "properties": {
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "capacity": {
-                      "type": "integer"
-                    },
-                    "age": {
-                      "type": "integer"
-                    },
-                    "gear": {
-                      "type": "string"
-                    },
-                    "merch": {
-                      "type": "string"
-                    },
-                    "term": {
-                      "type": "string"
-                    },
-                    "long": {
-                      "type": "string"
-                    },
-                    "lat": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "integer"
-                    },
-                    "load": {
-                      "type": "string"
-                    },
-                    "door": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "long": {
+          "type": "float"
         },
-        "MPKSuggestNotification": {
-          "type": "object",
-          "description": "when band member suggest mpk",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "mpksuggest"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "giginfo": {
-                  "type": "object",
-                  "properties": {
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "capacity": {
-                      "type": "integer"
-                    },
-                    "age": {
-                      "type": "integer"
-                    },
-                    "gear": {
-                      "type": "string"
-                    },
-                    "merch": {
-                      "type": "string"
-                    },
-                    "term": {
-                      "type": "string"
-                    },
-                    "long": {
-                      "type": "string"
-                    },
-                    "lat": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "integer"
-                    },
-                    "load": {
-                      "type": "string"
-                    },
-                    "door": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "suggesteduser": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "lat": {
+          "type": "float"
         },
-        "MPKApproveNotification": {
-          "type": "object",
-          "description": "when mpk approved.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "mpkapprove"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "giginfo": {
-                  "type": "object",
-                  "properties": {
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "capacity": {
-                      "type": "integer"
-                    },
-                    "age": {
-                      "type": "integer"
-                    },
-                    "gear": {
-                      "type": "string"
-                    },
-                    "merch": {
-                      "type": "string"
-                    },
-                    "term": {
-                      "type": "string"
-                    },
-                    "long": {
-                      "type": "string"
-                    },
-                    "lat": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "integer"
-                    },
-                    "load": {
-                      "type": "string"
-                    },
-                    "door": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "profile_image_url": {
+          "type": "string"
         },
-        "MPKRejectNotification": {
-          "type": "object",
-          "description": "when mpk rejected.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "mpkreject"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "giginfo": {
-                  "type": "object",
-                  "properties": {
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "capacity": {
-                      "type": "integer"
-                    },
-                    "age": {
-                      "type": "integer"
-                    },
-                    "gear": {
-                      "type": "string"
-                    },
-                    "merch": {
-                      "type": "string"
-                    },
-                    "term": {
-                      "type": "string"
-                    },
-                    "long": {
-                      "type": "string"
-                    },
-                    "lat": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "integer"
-                    },
-                    "load": {
-                      "type": "string"
-                    },
-                    "door": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
+        "default_age_restriction": {
+          "type": "integer"
         },
-        "DateEventNotification": {
-          "type": "object",
-          "description": "when today is some days before or after to performance.",
-          "properties": {
-            "notificaiton_type": {
-              "type": "string",
-              "value": "venuenotifyontime"
-            },
-            "data": {
-              "type": "object",
-              "properties": {
-                "giginfo": {
-                  "type": "object",
-                  "properties": {
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "capacity": {
-                      "type": "integer"
-                    },
-                    "age": {
-                      "type": "integer"
-                    },
-                    "gear": {
-                      "type": "string"
-                    },
-                    "merch": {
-                      "type": "string"
-                    },
-                    "term": {
-                      "type": "string"
-                    },
-                    "long": {
-                      "type": "string"
-                    },
-                    "lat": {
-                      "type": "string"
-                    },
-                    "price": {
-                      "type": "integer"
-                    },
-                    "load": {
-                      "type": "string"
-                    },
-                    "door": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "venuestartdate": {
-                  "type": "string",
-                  "enum": [
-                    "onemonthafter",
-                    "twoweeksafter",
-                    "oneweekafter",
-                    "today",
-                    "oneweekbefore",
-                    "onedaybefore",
-                    "twodaybefore",
-                    "fivedaybefore"
-                  ]
-                }
-              }
-            }
-          }
+        "gear_provided_by_venue": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
         }
       }
     },
-    "schedules": {
+    "shows": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "age_restriction": {
+          "type": "integer"
+        },
+        "load_in_time": {
+          "type": "time"
+        },
+        "doors_open_time": {
+          "type": "time"
+        },
+        "venue_id": {
+          "type": "integer"
+        },
+        "show_date": {
+          "type": "date"
+        }
+      }
+    },
+    "gigs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "term": {
+          "type": "string"
+        },
+        "show_id": {
+          "type": "integer"
+        },
+        "compensation": {
+          "type": "integer"
+        },
+        "from_time": {
+          "type": "time"
+        },
+        "to_time": {
+          "type": "time"
+        }
+      }
+    },
+    "venue_ratings": {
+      "type": "object",
+      "properties": {
+        "communication_rating": {
+          "type": "integer"
+        },
+        "promotion_rating": {
+          "type": "integer"
+        },
+        "audience_turnout_rating": {
+          "type": "integer"
+        },
+        "performance_rating": {
+          "type": "integer"
+        },
+        "venue_profile_accuracy_rating": {
+          "type": "integer"
+        },
+        "play_here_again_rating": {
+          "type": "integer"
+        },
+        "review": {
+          "type": "integer"
+        },
+        "gig_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "artist_ratings": {
+      "type": "object",
+      "properties": {
+        "communication_rating": {
+          "type": "integer"
+        },
+        "promotion_rating": {
+          "type": "integer"
+        },
+        "audience_turnout_rating": {
+          "type": "integer"
+        },
+        "performance_rating": {
+          "type": "integer"
+        },
+        "venue_profile_accuracy_rating": {
+          "type": "integer"
+        },
+        "play_here_again_rating": {
+          "type": "integer"
+        },
+        "review": {
+          "type": "integer"
+        },
+        "gig_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "error_code": {
+      "type": "object",
+      "properties": {
+        "SEVER_ERROR": {
+          "type": "string"
+        },
+        "DUPLICATED": {
+          "type": "string"
+        },
+        "INVALID_AUTH": {
+          "type": "string"
+        },
+        "NO_RESULT": {
+          "type": "string"
+        },
+        "TAKEN": {
+          "type": "string"
+        },
+        "INVALID_EMAIL": {
+          "type": "string"
+        },
+        "INVALID_PHONE": {
+          "type": "string"
+        },
+        "INVALID_FORMAT": {
+          "type": "string"
+        }
+      }
+    },
+    "notificationtype": {
+      "type": "object",
+      "properties": {
+        "NOTIFY_BAND_MEMBERSHIP_REQUESTEDBYMEMBER": {
+          "type": "string"
+        },
+        "NOTIFY_BAND_MEMBERSHIP_INVITEDBYLEADER": {
+          "type": "string"
+        },
+        "NOTIFY_BAND_MEMBERSHIP_CONFIMED": {
+          "type": "string"
+        },
+        "NOTIFY_BAND_MEMBERSHIP_DENIEDBYLEADER": {
+          "type": "string"
+        },
+        "NOTIFY_BAND_MEMBERSHIP_DECLINEDBYMEMBER": {
+          "type": "string"
+        },
+        "BandHasApplied": {
+          "type": "string"
+        },
+        "ApplicationWithdrawn": {
+          "type": "string"
+        },
+        "BandRejected": {
+          "type": "string"
+        },
+        "BandSelectedForOtherGig": {
+          "type": "string"
+        },
+        "ContractConfirmed": {
+          "type": "string"
+        },
+        "ContractExpired": {
+          "type": "string"
+        },
+        "ContractSuggested": {
+          "type": "string"
+        }
+      }
+    },
+    "gigmembershipstatus": {
+      "type": "object",
+      "properties": {
+        "RequestedByMember": {
+          "type": "string"
+        },
+        "InvitedByLeader": {
+          "type": "string"
+        },
+        "Confirmed": {
+          "type": "string"
+        },
+        "DeniedByLeader": {
+          "type": "string"
+        },
+        "DeclinedByMember": {
+          "type": "string"
+        }
+      }
+    },
+    "gigcontractstatus": {
+      "type": "object",
+      "properties": {
+        "BandHasApplied": {
+          "type": "string"
+        },
+        "ApplicationWithdrawn": {
+          "type": "string"
+        },
+        "BandRejected": {
+          "type": "string"
+        },
+        "BandSelectedForOtherGig": {
+          "type": "string"
+        },
+        "ContractConfirmed": {
+          "type": "string"
+        },
+        "ContractExpired": {
+          "type": "string"
+        },
+        "ContractAvailable": {
+          "type": "string"
+        }
+      }
+    },
+    "bandmembertype": {
+      "type": "object",
+      "properties": {
+        "BandLeader": {
+          "type": "string"
+        },
+        "BnadMember": {
+          "type": "string"
+        }
+      }
+    },
+    "bandservices": {
+      "type": "object",
+      "properties": {
+        "haspa": {
+          "type": "string"
+        },
+        "playacoustic": {
+          "type": "string"
+        },
+        "hasmerch": {
+          "type": "string"
+        }
+      }
+    },
+    "account_provider": {
+      "type": "object",
+      "properties": {
+        "AUTH_ORIGINAL": {
+          "type": "string"
+        },
+        "GOOGLE": {
+          "type": "string"
+        },
+        "FACEBOOK": {
+          "type": "string"
+        }
+      }
+    },
+    "gig_start_date": {
       "type": "string",
       "enum": [
         "onemonthafter",
