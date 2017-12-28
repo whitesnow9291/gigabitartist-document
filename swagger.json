@@ -387,7 +387,7 @@
                   "type": "integer",
                   "example": true
                 },
-                "bandTypes": {
+                "bandmembershiptypes": {
                   "type": "array",
                   "items": {
                     "properties": {
@@ -884,6 +884,9 @@
                   "type": "integer",
                   "example": true
                 },
+                "message": {
+                  "type": "string"
+                },
                 "bandTypes": {
                   "type": "array",
                   "items": {
@@ -1239,19 +1242,19 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "result": {
-                    "type": "integer",
-                    "format": "int64",
-                    "example": true
-                  },
-                  "message": {
-                    "type": "string"
-                  },
-                  "bandsOfMember": {
-                    "type": "object",
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "bandsOfMember": {
+                  "type": "array",
+                  "items": {
                     "properties": {
                       "id": {
                         "type": "integer",
@@ -1776,17 +1779,17 @@
           },
           {
             "in": "formData",
-            "name": "gig_id",
-            "description": "id of gig",
+            "name": "year",
+            "description": "year",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
-            "name": "token",
-            "description": "token for auth",
+            "name": "month",
+            "description": "month",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
@@ -1803,7 +1806,7 @@
                 "message": {
                   "type": "string"
                 },
-                "gig_contracts": {
+                "shows": {
                   "type": "array",
                   "items": {
                     "properties": {
@@ -2227,7 +2230,7 @@
                   "format": "int64",
                   "example": true
                 },
-                "newvenuerate": {
+                "newartistrate": {
                   "$ref": "#/definitions/artist_ratings"
                 },
                 "message": {
@@ -2473,7 +2476,7 @@
                   "format": "int64",
                   "example": true
                 },
-                "venue": {
+                "show": {
                   "$ref": "#/definitions/shows"
                 },
                 "message": {
@@ -2548,7 +2551,7 @@
                   "format": "int64",
                   "example": true
                 },
-                "venue": {
+                "gig": {
                   "$ref": "#/definitions/gigs"
                 },
                 "message": {
@@ -2571,6 +2574,9 @@
     "accounts": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "first_name": {
           "type": "string"
         },
