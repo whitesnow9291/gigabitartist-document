@@ -365,6 +365,48 @@
         }
       }
     },
+    "/band_membership/bandMembershipTypes": {
+      "get": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "get all band_membership types as array",
+        "description": "get all band_membership types as array",
+        "operationId": "bandMembershipTypes",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "example": true
+                },
+                "bandTypes": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/band_membership/sendJoinRequest": {
       "post": {
         "tags": [
