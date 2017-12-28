@@ -399,7 +399,7 @@
           },
           {
             "in": "formData",
-            "name": "band_membership_id",
+            "name": "band_membership_type_id",
             "description": "id of role user want to be",
             "required": true,
             "type": "integer"
