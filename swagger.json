@@ -1015,7 +1015,10 @@
                   "type": "string"
                 },
                 "bands": {
-                  "$ref": "#/definitions/bands"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/bands"
+                  }
                 }
               }
             }
