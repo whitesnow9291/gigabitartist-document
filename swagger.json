@@ -1100,6 +1100,9 @@
                       "fcm_register_id": {
                         "type": "string"
                       },
+                      "role": {
+                        "type": "string"
+                      },
                       "photo_url": {
                         "type": "string"
                       },
@@ -2567,6 +2570,9 @@
           "$ref": "#definitions/account_provider"
         },
         "fcm_register_id": {
+          "type": "string"
+        },
+        "role": {
           "type": "string"
         }
       }
