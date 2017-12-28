@@ -363,7 +363,7 @@
                         "type": "integer",
                         "format": "int64"
                       },
-                      "type": {
+                      "name": {
                         "type": "string"
                       }
                     }
@@ -863,7 +863,7 @@
                         "type": "integer",
                         "format": "int64"
                       },
-                      "type": {
+                      "name": {
                         "type": "string"
                       }
                     }
