@@ -316,39 +316,7 @@
                   "example": true
                 },
                 "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "surname": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "crypted_password": {
-                      "type": "string"
-                    },
-                    "role": {
-                      "type": "string"
-                    },
-                    "provider": {
-                      "type": "string"
-                    },
-                    "photo": {
-                      "type": "string"
-                    },
-                    "fcm_register_id": {
-                      "type": "string"
-                    },
-                    "phone_number": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/definitions/accounts"
                 },
                 "message": {
                   "type": "string"
