@@ -2044,6 +2044,13 @@
           },
           {
             "in": "formData",
+            "name": "venue_id",
+            "description": "id of venue",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
             "name": "communication_rating",
             "required": true,
             "type": "integer"
@@ -2140,6 +2147,13 @@
             "in": "formData",
             "name": "gig_id",
             "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band",
             "required": true,
             "type": "integer"
           },
@@ -2281,6 +2295,89 @@
                       "type": "date"
                     },
                     "compensation": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/rate/getArtistRating": {
+      "post": {
+        "tags": [
+          "rate"
+        ],
+        "summary": "get rating of band",
+        "description": "get rating of band",
+        "operationId": "getArtistRating",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "band_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "artisthistory": {
+                  "type": "object",
+                  "properties": {
+                    "band_id": {
+                      "type": "integer"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "communication_rating": {
+                      "type": "integer"
+                    },
+                    "promotion_rating": {
+                      "type": "integer"
+                    },
+                    "audience_turnout_rating": {
+                      "type": "integer"
+                    },
+                    "performance_rating": {
+                      "type": "integer"
+                    },
+                    "venue_profile_accuracy_rating": {
+                      "type": "integer"
+                    },
+                    "play_here_again_rating": {
                       "type": "integer"
                     }
                   }
@@ -2746,6 +2843,9 @@
         },
         "gig_id": {
           "type": "integer"
+        },
+        "venue_id": {
+          "type": "integer"
         }
       }
     },
@@ -2774,6 +2874,9 @@
           "type": "integer"
         },
         "gig_id": {
+          "type": "integer"
+        },
+        "band_id": {
           "type": "integer"
         }
       }
