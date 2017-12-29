@@ -493,6 +493,15 @@
                   "format": "int64",
                   "example": true
                 },
+                "band_id": {
+                  "type": "integer"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "band_membership_type_id": {
+                  "type": "integer"
+                },
                 "message": {
                   "type": "string"
                 }
