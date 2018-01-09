@@ -163,6 +163,31 @@
             "description": "provider where user signup by.(original, facebook, google)",
             "required": true
           }
+        ]
+      }
+    },
+    "/auth/getUserStatus": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "getUserStatus",
+        "description": "get users status after login.",
+        "operationId": "getUserStatus",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "token",
+            "type": "string",
+            "description": "User token",
+            "required": true
+          }
         ],
         "responses": {
           "success": {
@@ -175,19 +200,28 @@
                   "format": "int64",
                   "example": true
                 },
-                "account": {
-                  "$ref": "#definitions/accounts"
+                "status": {
+                  "type": "string",
+                  "example": "BandLeader | BandMember | NoMemberShip"
                 },
-                "token": {
+                "band_membership": {
+                  "type": "object",
+                  "properties": {
+                    "band_id": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "message": {
                   "type": "string"
                 }
               }
-            }
-          },
-          "failed": {
-            "description": "failed operation",
-            "schema": {
-              "$ref": "#/definitions/CommmonErrorResponse"
             }
           }
         }
