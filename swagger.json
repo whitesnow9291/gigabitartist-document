@@ -200,20 +200,72 @@
                   "format": "int64",
                   "example": true
                 },
-                "status": {
-                  "type": "string",
-                  "example": "BandLeader | BandMember | NoMemberShip"
+                "has_membership": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
                 },
                 "band_membership": {
                   "type": "object",
                   "properties": {
+                    "bandmembership_type_id": {
+                      "type": "integer"
+                    },
+                    "bandmembership_type": {
+                      "type": "string"
+                    },
+                    "band_membership_id": {
+                      "type": "integer"
+                    },
                     "band_id": {
                       "type": "integer"
                     },
-                    "status": {
+                    "account_id": {
+                      "type": "integer"
+                    },
+                    "band_membership_status": {
                       "type": "string"
                     },
-                    "name": {
+                    "band_name": {
+                      "type": "string"
+                    },
+                    "band_genre": {
+                      "type": "string"
+                    },
+                    "band_hometown": {
+                      "type": "string"
+                    },
+                    "band_music_intensity": {
+                      "type": "integer"
+                    },
+                    "band_photo_url": {
+                      "type": "string"
+                    },
+                    "band_haspa": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "band_playacoustic": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "band_hasmerch": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "band_email": {
+                      "type": "string"
+                    },
+                    "band_website_url": {
+                      "type": "string"
+                    },
+                    "band_type_id": {
+                      "type": "string"
+                    },
+                    "audio_file_id": {
                       "type": "string"
                     }
                   }
