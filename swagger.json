@@ -163,7 +163,34 @@
             "description": "provider where user signup by.(original, facebook, google)",
             "required": true
           }
-        ]
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "account": {
+                  "$ref": "#definitions/accounts"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
       }
     },
     "/auth/getUserStatus": {
