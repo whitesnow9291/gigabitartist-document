@@ -2133,10 +2133,17 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "band_member_ship_id",
-            "description": "band_member_ship_id",
+            "name": "band_id",
+            "description": "band_id",
             "required": true,
             "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user",
+            "required": true,
+            "type": "string"
           },
           {
             "in": "formData",
