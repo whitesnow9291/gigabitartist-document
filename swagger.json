@@ -415,57 +415,71 @@
                 "recent_band_info": {
                   "type": "object",
                   "properties": {
-                    "band_member_shiptype_id": {
+                    "band_id": {
                       "type": "integer"
+                    },
+                    "account_id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "band_membership_status": {
+                      "type": "string"
+                    },
+                    "band_membership_id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "band_member_shiptype_id": {
+                      "type": "integer",
+                      "format": "int64"
                     },
                     "band_membership_name": {
                       "type": "string"
                     },
-                    "id": {
-                      "type": "integer"
-                    },
                     "band_name": {
                       "type": "string"
                     },
-                    "genre": {
+                    "band_genre": {
                       "type": "string"
                     },
-                    "hometown": {
+                    "band_hometown": {
                       "type": "string"
                     },
-                    "music_intensity": {
-                      "type": "number"
+                    "band_music_intensity": {
+                      "type": "integer",
+                      "format": "int64"
                     },
-                    "photo_url": {
+                    "band_photo_url": {
                       "type": "string"
                     },
-                    "haspa": {
+                    "band_haspa": {
                       "type": "integer",
                       "format": "int64",
                       "example": true
                     },
-                    "playacoustic": {
+                    "band_playacoustic": {
                       "type": "integer",
                       "format": "int64",
                       "example": true
                     },
-                    "hasmerch": {
+                    "band_hasmerch": {
                       "type": "integer",
                       "format": "int64",
                       "example": true
                     },
-                    "email": {
+                    "band_email": {
+                      "type": "string"
+                    },
+                    "band_website_url": {
                       "type": "string"
                     },
                     "band_type_id": {
                       "type": "integer",
-                      "format": "int64",
-                      "example": true
+                      "format": "int64"
                     },
-                    "audio_file_id": {
+                    "band_audio_file_id": {
                       "type": "integer",
-                      "format": "int64",
-                      "example": true
+                      "format": "int64"
                     }
                   }
                 },
