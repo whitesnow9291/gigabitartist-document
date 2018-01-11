@@ -193,122 +193,6 @@
         }
       }
     },
-    "/auth/getUserStatus": {
-      "post": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "getUserStatus",
-        "description": "get users status after login.",
-        "operationId": "getUserStatus",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "token",
-            "type": "string",
-            "description": "User token",
-            "required": true
-          }
-        ],
-        "responses": {
-          "success": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "has_membership": {
-                  "type": "integer",
-                  "format": "int64",
-                  "example": true
-                },
-                "band_membership": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "bandmembership_type_id": {
-                        "type": "integer"
-                      },
-                      "bandmembership_type": {
-                        "type": "string"
-                      },
-                      "band_membership_id": {
-                        "type": "integer"
-                      },
-                      "band_id": {
-                        "type": "integer"
-                      },
-                      "account_id": {
-                        "type": "integer"
-                      },
-                      "band_membership_status": {
-                        "type": "string"
-                      },
-                      "band_name": {
-                        "type": "string"
-                      },
-                      "band_genre": {
-                        "type": "string"
-                      },
-                      "band_hometown": {
-                        "type": "string"
-                      },
-                      "band_music_intensity": {
-                        "type": "integer"
-                      },
-                      "band_photo_url": {
-                        "type": "string"
-                      },
-                      "band_haspa": {
-                        "type": "integer",
-                        "format": "int64",
-                        "example": true
-                      },
-                      "band_playacoustic": {
-                        "type": "integer",
-                        "format": "int64",
-                        "example": true
-                      },
-                      "band_hasmerch": {
-                        "type": "integer",
-                        "format": "int64",
-                        "example": true
-                      },
-                      "band_email": {
-                        "type": "string"
-                      },
-                      "band_website_url": {
-                        "type": "string"
-                      },
-                      "band_type_id": {
-                        "type": "string"
-                      },
-                      "audio_file_id": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                },
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/photoUpload": {
       "post": {
         "tags": [
@@ -484,6 +368,109 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/band/getUserStatus": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "getUserStatus",
+        "description": "get users status after login.",
+        "operationId": "getUserStatus",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "token",
+            "type": "string",
+            "description": "User token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "membershiptype": {
+                  "type": "string"
+                },
+                "recent_band_info": {
+                  "type": "object",
+                  "properties": {
+                    "band_member_shiptype_id": {
+                      "type": "integer"
+                    },
+                    "band_membership_name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "band_name": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "hometown": {
+                      "type": "string"
+                    },
+                    "music_intensity": {
+                      "type": "number"
+                    },
+                    "photo_url": {
+                      "type": "string"
+                    },
+                    "haspa": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "playacoustic": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "hasmerch": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "band_type_id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    },
+                    "audio_file_id": {
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string"
                 }
               }
             }
@@ -1089,6 +1076,63 @@
                 "message": {
                   "type": "string",
                   "example": "successfuly created new band"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band/setCurrentUsedBand": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "set currently used band",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "description": "",
+        "operationId": "setCurrentUsedBand",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "band id currently used by user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user when generated user signup or signin to application",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "successfuly updated currently used band id"
                 }
               }
             }
