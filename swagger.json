@@ -1413,7 +1413,7 @@
                   "type": "array",
                   "items": {
                     "properties": {
-                      "id": {
+                      "band_member_ship_id": {
                         "type": "integer",
                         "format": "int64",
                         "description": "contract id"
@@ -1462,7 +1462,7 @@
                       "audio_file_id": {
                         "type": "string"
                       },
-                      "photo": {
+                      "photo_url": {
                         "type": "string"
                       },
                       "haspa": {
