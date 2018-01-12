@@ -2161,7 +2161,7 @@
           },
           {
             "in": "formData",
-            "name": "detail",
+            "name": "details",
             "description": "detailed description",
             "required": true,
             "type": "string"
