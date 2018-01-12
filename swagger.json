@@ -82,7 +82,7 @@
               "facebook",
               "google"
             ],
-            "description": "provider where user signup by.(original, facebook, google)",
+            "description": "provider where user signup by.",
             "required": true
           },
           {
@@ -160,7 +160,121 @@
               "facebook",
               "google"
             ],
-            "description": "provider where user signup by.(original, facebook, google)",
+            "description": "provider where user signup by.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "account": {
+                  "$ref": "#definitions/accounts"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/sendVerificationCodeToEmail": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Send verification code to email for forgot password",
+        "description": "send verification code to email",
+        "operationId": "sendVerificationCodeToEmail",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "description": "User email",
+            "required": true
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/updatepassword": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "change user password",
+        "description": "change user password",
+        "operationId": "updatepassword",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "description": "User email",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "description": "User password",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "vcode",
+            "type": "string",
             "required": true
           }
         ],
