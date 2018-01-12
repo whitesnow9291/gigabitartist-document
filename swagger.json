@@ -1305,7 +1305,25 @@
                         "type": "integer"
                       },
                       "instruments": {
-                        "$ref": "#/definitions/instruments"
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "parent_instrument_id": {
+                            "type": "integer"
+                          },
+                          "haschild": {
+                            "type": "integer",
+                            "example": true
+                          },
+                          "details": {
+                            "type": "string"
+                          }
+                        }
                       }
                     }
                   }
