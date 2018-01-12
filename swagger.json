@@ -2372,13 +2372,6 @@
           },
           {
             "in": "formData",
-            "name": "venue_id",
-            "description": "id of venue",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
             "name": "communication_rating",
             "required": true,
             "type": "integer"
@@ -2397,7 +2390,7 @@
           },
           {
             "in": "formData",
-            "name": "performane_rating",
+            "name": "production_rating",
             "required": true,
             "type": "integer"
           },
@@ -2511,13 +2504,19 @@
           },
           {
             "in": "formData",
-            "name": "venue_profile_accuracy_rating",
+            "name": "mpk_accurancy_rating",
             "required": true,
             "type": "integer"
           },
           {
             "in": "formData",
-            "name": "play_here_again_rating",
+            "name": "venue_review_completed_rating",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "general_awesomeness_rating",
             "required": true,
             "type": "integer"
           },
@@ -2613,6 +2612,9 @@
                 "history": {
                   "type": "object",
                   "properties": {
+                    "gig_id": {
+                      "type": "integer"
+                    },
                     "venuename": {
                       "type": "string"
                     },
@@ -3157,7 +3159,7 @@
         "audience_turnout_rating": {
           "type": "integer"
         },
-        "performance_rating": {
+        "production_rating": {
           "type": "integer"
         },
         "venue_profile_accuracy_rating": {
@@ -3192,10 +3194,13 @@
         "performance_rating": {
           "type": "integer"
         },
-        "venue_profile_accuracy_rating": {
+        "mpk_accurancy_rating": {
           "type": "integer"
         },
-        "play_here_again_rating": {
+        "venue_review_completed_rating": {
+          "type": "integer"
+        },
+        "general_awesomeness_rating": {
           "type": "integer"
         },
         "review": {
