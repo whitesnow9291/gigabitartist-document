@@ -105,7 +105,41 @@
                   "example": true
                 },
                 "account": {
-                  "$ref": "#/definitions/accounts"
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "current_used_band_id": {
+                      "type": "integer"
+                    },
+                    "photo": {
+                      "type": "object",
+                      "properties": {
+                        "large": {
+                          "type": "string"
+                        },
+                        "small": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 },
                 "token": {
                   "type": "string"
@@ -176,7 +210,41 @@
                   "example": true
                 },
                 "account": {
-                  "$ref": "#definitions/accounts"
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "current_used_band_id": {
+                      "type": "integer"
+                    },
+                    "photo": {
+                      "type": "object",
+                      "properties": {
+                        "large": {
+                          "type": "string"
+                        },
+                        "small": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 },
                 "token": {
                   "type": "string"
@@ -289,9 +357,6 @@
                   "format": "int64",
                   "example": true
                 },
-                "account": {
-                  "$ref": "#definitions/accounts"
-                },
                 "token": {
                   "type": "string"
                 }
@@ -348,11 +413,16 @@
                   "format": "int64",
                   "example": true
                 },
-                "photo_url": {
-                  "type": "string"
-                },
-                "small_photo_url": {
-                  "type": "string"
+                "photo": {
+                  "type": "object",
+                  "properties": {
+                    "large": {
+                      "type": "string"
+                    },
+                    "small": {
+                      "type": "string"
+                    }
+                  }
                 },
                 "message": {
                   "type": "string"
@@ -425,7 +495,41 @@
                   "example": true
                 },
                 "account": {
-                  "$ref": "#/definitions/accounts"
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "provider": {
+                      "type": "string"
+                    },
+                    "current_used_band_id": {
+                      "type": "integer"
+                    },
+                    "photo": {
+                      "type": "object",
+                      "properties": {
+                        "large": {
+                          "type": "string"
+                        },
+                        "small": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 },
                 "message": {
                   "type": "string"
@@ -3047,9 +3151,6 @@
           "type": "string"
         },
         "photo_url": {
-          "type": "string"
-        },
-        "small_photo_url": {
           "type": "string"
         },
         "encrypted_password": {
