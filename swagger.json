@@ -1161,6 +1161,9 @@
                     "band_membership_name": {
                       "type": "string"
                     },
+                    "mpk_completed": {
+                      "type": "integer"
+                    },
                     "band_name": {
                       "type": "string"
                     },
