@@ -348,9 +348,11 @@
                   "format": "int64",
                   "example": true
                 },
-                "filename": {
-                  "type": "string",
-                  "description": "uploaded file name"
+                "photo_url": {
+                  "type": "string"
+                },
+                "small_photo_url": {
+                  "type": "string"
                 },
                 "message": {
                   "type": "string"
@@ -400,13 +402,6 @@
             "in": "formData",
             "name": "phone_number",
             "description": "phone number (valid  8615174176504)",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "photo",
-            "description": "user photo file name",
             "required": true,
             "type": "string"
           },
@@ -1162,7 +1157,9 @@
                       "type": "string"
                     },
                     "mpk_completed": {
-                      "type": "integer"
+                      "type": "integer",
+                      "format": "int64",
+                      "example": true
                     },
                     "band_name": {
                       "type": "string"
@@ -3050,6 +3047,9 @@
           "type": "string"
         },
         "photo_url": {
+          "type": "string"
+        },
+        "small_photo_url": {
           "type": "string"
         },
         "encrypted_password": {
