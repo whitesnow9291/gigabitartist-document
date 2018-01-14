@@ -2113,24 +2113,48 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "band_id",
-            "description": "id of band",
+            "name": "fromDate",
+            "description": "start date of search",
             "required": true,
-            "type": "integer"
+            "type": "string",
+            "example": "2017-12-25"
           },
           {
             "in": "formData",
-            "name": "gig_id",
-            "description": "id of gig",
+            "name": "toDate",
+            "description": "end date of search",
             "required": true,
-            "type": "integer"
+            "type": "string",
+            "example": "2017-12-25"
           },
           {
             "in": "formData",
-            "name": "token",
-            "description": "token for auth",
+            "name": "lat",
+            "description": "langitude of center position",
             "required": true,
-            "type": "string"
+            "type": "float"
+          },
+          {
+            "in": "formData",
+            "name": "long",
+            "description": "longitude of center position",
+            "required": true,
+            "type": "float"
+          },
+          {
+            "in": "formData",
+            "name": "unit",
+            "description": "unit of distance",
+            "required": true,
+            "type": "string",
+            "example": "miles,kms, nms, meters"
+          },
+          {
+            "in": "formData",
+            "name": "radio",
+            "description": "number of distance without unit",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
