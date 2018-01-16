@@ -2556,6 +2556,69 @@
         }
       }
     },
+    "/instrument/removeBandMemberInstrument": {
+      "post": {
+        "tags": [
+          "instrument"
+        ],
+        "summary": "remove instrument to user",
+        "description": "remove instrument to user",
+        "operationId": "removeBandMemberInstrument",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "band id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "instrument_id",
+            "description": "instrument_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/instrument/resetBandMemberInstrument": {
       "post": {
         "tags": [
