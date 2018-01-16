@@ -1712,8 +1712,16 @@
                       "audio_file_id": {
                         "type": "string"
                       },
-                      "photo_url": {
-                        "type": "string"
+                      "photo": {
+                        "type": "object",
+                        "properties": {
+                          "large": {
+                            "type": "string"
+                          },
+                          "small": {
+                            "type": "string"
+                          }
+                        }
                       },
                       "haspa": {
                         "type": "boolean"
