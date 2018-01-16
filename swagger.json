@@ -2896,10 +2896,13 @@
                     "performance_rating": {
                       "type": "integer"
                     },
-                    "venue_profile_accuracy_rating": {
+                    "mpk_accurancy_rating": {
                       "type": "integer"
                     },
-                    "play_here_again_rating": {
+                    "venue_review_completed_rating": {
+                      "type": "integer"
+                    },
+                    "general_awesomeness_rating": {
                       "type": "integer"
                     }
                   }
