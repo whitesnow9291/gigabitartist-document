@@ -3221,8 +3221,16 @@
         "music_intensity": {
           "type": "integer"
         },
-        "photo_url": {
-          "type": "string"
+        "photo": {
+          "type": "object",
+          "properties": {
+            "large": {
+              "type": "string"
+            },
+            "small": {
+              "type": "string"
+            }
+          }
         },
         "haspa": {
           "type": "boolean"
