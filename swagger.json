@@ -338,11 +338,61 @@
             "type": "string",
             "description": "User password",
             "required": true
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/verifyCode": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "verify code sent email",
+        "description": "verify code sent email",
+        "operationId": "verifyCode",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "description": "User email",
+            "required": true
           },
           {
             "in": "formData",
             "name": "vcode",
             "type": "string",
+            "description": "verification code sent email",
             "required": true
           }
         ],
@@ -357,7 +407,7 @@
                   "format": "int64",
                   "example": true
                 },
-                "token": {
+                "message": {
                   "type": "string"
                 }
               }
