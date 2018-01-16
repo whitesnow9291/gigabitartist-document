@@ -1278,8 +1278,16 @@
                       "type": "integer",
                       "format": "int64"
                     },
-                    "band_photo_url": {
-                      "type": "string"
+                    "photo": {
+                      "type": "object",
+                      "properties": {
+                        "large": {
+                          "type": "string"
+                        },
+                        "small": {
+                          "type": "string"
+                        }
+                      }
                     },
                     "band_haspa": {
                       "type": "integer",
