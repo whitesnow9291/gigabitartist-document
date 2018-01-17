@@ -1827,7 +1827,7 @@
           {
             "in": "formData",
             "name": "bandservice",
-            "description": "param of checkbox ( hasPA, playacoustic, hasmerch )",
+            "description": "param of checkbox ( haspa, playacoustic, hasmerch )",
             "required": true,
             "type": "string"
           },
