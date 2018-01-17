@@ -1420,6 +1420,9 @@
                   "format": "int64",
                   "example": true
                 },
+                "band": {
+                  "$ref": "#definitions/bands"
+                },
                 "message": {
                   "type": "string",
                   "example": "successfuly updated currently used band id"
