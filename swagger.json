@@ -3530,8 +3530,16 @@
         "lat": {
           "type": "float"
         },
-        "profile_image_url": {
-          "type": "string"
+        "photo": {
+          "type": "object",
+          "properties": {
+            "large": {
+              "type": "string"
+            },
+            "small": {
+              "type": "string"
+            }
+          }
         },
         "default_age_restriction": {
           "type": "integer"
