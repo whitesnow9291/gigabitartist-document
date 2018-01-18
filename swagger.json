@@ -2263,43 +2263,46 @@
                         "$ref": "#/definitions/venues"
                       },
                       "gigs": {
-                        "type": "object",
-                        "properties": {
-                          "available": {
-                            "type": "boolean"
-                          },
-                          "confirmed_bandname": {
-                            "type": "string"
-                          },
-                          "age_restriction": {
-                            "type": "integer"
-                          },
-                          "load_in_time": {
-                            "type": "time"
-                          },
-                          "doors_open_time": {
-                            "type": "time"
-                          },
-                          "venue_id": {
-                            "type": "integer"
-                          },
-                          "show_date": {
-                            "type": "date"
-                          },
-                          "term": {
-                            "type": "string"
-                          },
-                          "show_id": {
-                            "type": "integer"
-                          },
-                          "compensation": {
-                            "type": "integer"
-                          },
-                          "from_time": {
-                            "type": "time"
-                          },
-                          "to_time": {
-                            "type": "time"
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "available": {
+                              "type": "boolean"
+                            },
+                            "confirmed_bandname": {
+                              "type": "string"
+                            },
+                            "age_restriction": {
+                              "type": "integer"
+                            },
+                            "load_in_time": {
+                              "type": "time"
+                            },
+                            "doors_open_time": {
+                              "type": "time"
+                            },
+                            "venue_id": {
+                              "type": "integer"
+                            },
+                            "show_date": {
+                              "type": "date"
+                            },
+                            "term": {
+                              "type": "string"
+                            },
+                            "show_id": {
+                              "type": "integer"
+                            },
+                            "compensation": {
+                              "type": "integer"
+                            },
+                            "from_time": {
+                              "type": "time"
+                            },
+                            "to_time": {
+                              "type": "time"
+                            }
                           }
                         }
                       }
