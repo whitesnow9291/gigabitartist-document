@@ -2321,6 +2321,109 @@
         }
       }
     },
+    "/gig_contract/getUpcomingGig": {
+      "post": {
+        "tags": [
+          "gig_contract"
+        ],
+        "summary": "get Upcoming Gigs",
+        "description": "get Upcoming Gigs",
+        "operationId": "getUpcomingGig",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "page",
+            "description": "number page for pagination",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "gig_contracts": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "venue": {
+                        "$ref": "#/definitions/venues"
+                      },
+                      "gigs": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "available": {
+                              "type": "boolean"
+                            },
+                            "confirmed_bandname": {
+                              "type": "string"
+                            },
+                            "age_restriction": {
+                              "type": "integer"
+                            },
+                            "load_in_time": {
+                              "type": "time"
+                            },
+                            "doors_open_time": {
+                              "type": "time"
+                            },
+                            "venue_id": {
+                              "type": "integer"
+                            },
+                            "show_date": {
+                              "type": "date"
+                            },
+                            "term": {
+                              "type": "string"
+                            },
+                            "show_id": {
+                              "type": "integer"
+                            },
+                            "compensation": {
+                              "type": "integer"
+                            },
+                            "from_time": {
+                              "type": "time"
+                            },
+                            "to_time": {
+                              "type": "time"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/gig_contract/getGigContractsOfMonth": {
       "post": {
         "tags": [
