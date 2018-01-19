@@ -1325,9 +1325,6 @@
                     "band_name": {
                       "type": "string"
                     },
-                    "band_genre": {
-                      "type": "string"
-                    },
                     "band_hometown": {
                       "type": "string"
                     },
@@ -1761,9 +1758,6 @@
                       "band_type_id": {
                         "type": "integer",
                         "description": "type of band"
-                      },
-                      "genre": {
-                        "type": "string"
                       },
                       "hometown": {
                         "type": "string"
@@ -2239,6 +2233,13 @@
             "description": "number of distance without unit",
             "required": true,
             "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "current band of user using",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -2429,9 +2430,9 @@
         "tags": [
           "gig_contract"
         ],
-        "summary": "searchGig",
-        "description": "searchGig",
-        "operationId": "searchGig",
+        "summary": "getGigContractsOfMonth",
+        "description": "getGigContractsOfMonth",
+        "operationId": "getGigContractsOfMonth",
         "consumes": [
           "multipart/form-data"
         ],
@@ -3556,9 +3557,6 @@
           "format": "int64"
         },
         "name": {
-          "type": "string"
-        },
-        "genre": {
           "type": "string"
         },
         "hometown": {
