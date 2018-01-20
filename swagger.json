@@ -2292,7 +2292,7 @@
                   "items": {
                     "properties": {
                       "venuesData": {
-                        "$ref": "#/definitions/venues"
+                        "$ref": "#/definitions/venueswithdistance"
                       },
                       "showData": {
                         "type": "array",
@@ -3821,6 +3821,52 @@
         },
         "capacity": {
           "type": "integer"
+        }
+      }
+    },
+    "venueswithdistance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "venuename": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "long": {
+          "type": "float"
+        },
+        "lat": {
+          "type": "float"
+        },
+        "photo": {
+          "type": "object",
+          "properties": {
+            "large": {
+              "type": "string"
+            },
+            "small": {
+              "type": "string"
+            }
+          }
+        },
+        "default_age_restriction": {
+          "type": "integer"
+        },
+        "gear_provided_by_venue": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "distance": {
+          "type": "float"
+        },
+        "unit": {
+          "type": "string"
         }
       }
     },
