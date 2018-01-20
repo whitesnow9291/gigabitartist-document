@@ -2446,68 +2446,65 @@
                         "$ref": "#/definitions/venues"
                       },
                       "showData": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "showData": {
-                              "type": "object",
+                        "type": "object",
+                        "properties": {
+                          "showData": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "age_restriction": {
+                                "type": "integer"
+                              },
+                              "load_in_time": {
+                                "type": "string"
+                              },
+                              "doors_open_time": {
+                                "type": "string"
+                              },
+                              "venue_id": {
+                                "type": "integer"
+                              },
+                              "show_date": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "gigData": {
+                            "type": "array",
+                            "items": {
                               "properties": {
                                 "id": {
                                   "type": "integer"
                                 },
-                                "age_restriction": {
+                                "term": {
+                                  "type": "string"
+                                },
+                                "show_id": {
                                   "type": "integer"
                                 },
-                                "load_in_time": {
-                                  "type": "string"
-                                },
-                                "doors_open_time": {
-                                  "type": "string"
-                                },
-                                "venue_id": {
+                                "compensation": {
                                   "type": "integer"
                                 },
-                                "show_date": {
+                                "from_time": {
                                   "type": "string"
-                                }
-                              }
-                            },
-                            "gigData": {
-                              "type": "array",
-                              "items": {
-                                "properties": {
-                                  "id": {
-                                    "type": "integer"
-                                  },
-                                  "term": {
-                                    "type": "string"
-                                  },
-                                  "show_id": {
-                                    "type": "integer"
-                                  },
-                                  "compensation": {
-                                    "type": "integer"
-                                  },
-                                  "from_time": {
-                                    "type": "string"
-                                  },
-                                  "to_time": {
-                                    "type": "string"
-                                  },
-                                  "desired_band_type_id": {
-                                    "type": "integer"
-                                  },
-                                  "desired_music_intensity": {
-                                    "type": "integer"
-                                  },
-                                  "available": {
-                                    "type": "integer",
-                                    "example": true
-                                  },
-                                  "confirmed_bandname": {
-                                    "type": "string"
-                                  }
+                                },
+                                "to_time": {
+                                  "type": "string"
+                                },
+                                "desired_band_type_id": {
+                                  "type": "integer"
+                                },
+                                "desired_music_intensity": {
+                                  "type": "integer"
+                                },
+                                "available": {
+                                  "type": "integer",
+                                  "example": true
+                                },
+                                "confirmed_bandname": {
+                                  "type": "string"
                                 }
                               }
                             }
