@@ -763,15 +763,6 @@
                   "format": "int64",
                   "example": true
                 },
-                "band_id": {
-                  "type": "integer"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "band_membership_type_id": {
-                  "type": "integer"
-                },
                 "message": {
                   "type": "string"
                 }
@@ -874,13 +865,6 @@
           },
           {
             "in": "formData",
-            "name": "account_id",
-            "description": "id of account",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
             "name": "token",
             "description": "token of current user",
             "required": true,
@@ -932,13 +916,6 @@
             "in": "formData",
             "name": "band_id",
             "description": "id of band user withraw",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "account_id",
-            "description": "id of account",
             "required": true,
             "type": "integer"
           },
