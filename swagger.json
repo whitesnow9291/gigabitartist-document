@@ -1492,6 +1492,60 @@
         }
       }
     },
+    "/band/getLatLongFromAddress": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "get lat long from full address",
+        "description": "",
+        "operationId": "getLatLongFromAddress",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "address",
+            "description": "full address",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "latlng": {
+                  "type": "object",
+                  "properties": {
+                    "lat": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/band/bandState": {
       "post": {
         "tags": [
@@ -2322,6 +2376,9 @@
                                   "available": {
                                     "type": "integer",
                                     "example": true
+                                  },
+                                  "confirmed_bandname": {
+                                    "type": "string"
                                   }
                                 }
                               }
@@ -2381,53 +2438,78 @@
                 "message": {
                   "type": "string"
                 },
-                "gig_contracts": {
+                "searchResult": {
                   "type": "array",
                   "items": {
                     "properties": {
-                      "venue": {
+                      "venuesData": {
                         "$ref": "#/definitions/venues"
                       },
-                      "gigs": {
+                      "showData": {
                         "type": "array",
                         "items": {
                           "type": "object",
                           "properties": {
-                            "available": {
-                              "type": "boolean"
+                            "showData": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "age_restriction": {
+                                  "type": "integer"
+                                },
+                                "load_in_time": {
+                                  "type": "string"
+                                },
+                                "doors_open_time": {
+                                  "type": "string"
+                                },
+                                "venue_id": {
+                                  "type": "integer"
+                                },
+                                "show_date": {
+                                  "type": "string"
+                                }
+                              }
                             },
-                            "confirmed_bandname": {
-                              "type": "string"
-                            },
-                            "age_restriction": {
-                              "type": "integer"
-                            },
-                            "load_in_time": {
-                              "type": "time"
-                            },
-                            "doors_open_time": {
-                              "type": "time"
-                            },
-                            "venue_id": {
-                              "type": "integer"
-                            },
-                            "show_date": {
-                              "type": "date"
-                            },
-                            "term": {
-                              "type": "string"
-                            },
-                            "show_id": {
-                              "type": "integer"
-                            },
-                            "compensation": {
-                              "type": "integer"
-                            },
-                            "from_time": {
-                              "type": "time"
-                            },
-                            "to_time": {
-                              "type": "time"
+                            "gigData": {
+                              "type": "array",
+                              "items": {
+                                "properties": {
+                                  "id": {
+                                    "type": "integer"
+                                  },
+                                  "term": {
+                                    "type": "string"
+                                  },
+                                  "show_id": {
+                                    "type": "integer"
+                                  },
+                                  "compensation": {
+                                    "type": "integer"
+                                  },
+                                  "from_time": {
+                                    "type": "string"
+                                  },
+                                  "to_time": {
+                                    "type": "string"
+                                  },
+                                  "desired_band_type_id": {
+                                    "type": "integer"
+                                  },
+                                  "desired_music_intensity": {
+                                    "type": "integer"
+                                  },
+                                  "available": {
+                                    "type": "integer",
+                                    "example": true
+                                  },
+                                  "confirmed_bandname": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
                             }
                           }
                         }
@@ -3529,6 +3611,96 @@
             "description": "failed operation",
             "schema": {
               "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/genre/gigDesiredGenres": {
+      "post": {
+        "tags": [
+          "genre"
+        ],
+        "summary": "get all genres of gig as string",
+        "description": "get all genres of gig as string",
+        "operationId": "gigDesiredGenres",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "genres": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/genre/bandMusicGenres": {
+      "post": {
+        "tags": [
+          "genre"
+        ],
+        "summary": "get all genres of band as string",
+        "description": "get all genres of band as string",
+        "operationId": "bandMusicGenres",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "genres": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
