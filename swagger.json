@@ -3275,6 +3275,9 @@
                                 },
                                 "confirmed_bandname": {
                                   "type": "string"
+                                },
+                                "rate_availabe": {
+                                  "type": "string"
                                 }
                               }
                             }
