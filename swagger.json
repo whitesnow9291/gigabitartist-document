@@ -3193,20 +3193,7 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "fromDate",
-            "description": "id of gig",
-            "required": true,
-            "type": "date"
-          },
-          {
-            "in": "formData",
-            "name": "toDate",
-            "required": true,
-            "type": "date"
-          },
-          {
-            "in": "formData",
-            "name": "band_id",
+            "name": "page",
             "required": true,
             "type": "integer"
           }
