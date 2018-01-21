@@ -4131,6 +4131,9 @@
         },
         "ContractAvailable": {
           "type": "string"
+        },
+        "NoContract": {
+          "type": "string"
         }
       }
     },
