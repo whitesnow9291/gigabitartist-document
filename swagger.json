@@ -2554,83 +2554,79 @@
                 "message": {
                   "type": "string"
                 },
-                "shows": {
+                "upcominggigs": {
                   "type": "array",
                   "items": {
                     "properties": {
-                      "show": {
+                      "venuesData": {
+                        "$ref": "#/definitions/venues"
+                      },
+                      "showData": {
                         "type": "object",
                         "properties": {
-                          "venuename": {
-                            "type": "string"
+                          "showData": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "age_restriction": {
+                                "type": "integer"
+                              },
+                              "load_in_time": {
+                                "type": "string"
+                              },
+                              "doors_open_time": {
+                                "type": "string"
+                              },
+                              "venue_id": {
+                                "type": "integer"
+                              },
+                              "show_date": {
+                                "type": "string"
+                              }
+                            }
                           },
-                          "address": {
-                            "type": "string"
-                          },
-                          "long": {
-                            "type": "float"
-                          },
-                          "lat": {
-                            "type": "float"
-                          },
-                          "profile_image_url": {
-                            "type": "string"
-                          },
-                          "default_age_restriction": {
-                            "type": "integer"
-                          },
-                          "gear_provided_by_venue": {
-                            "type": "string"
-                          },
-                          "capacity": {
-                            "type": "integer"
-                          },
-                          "age_restriction": {
-                            "type": "integer"
-                          },
-                          "load_in_time": {
-                            "type": "time"
-                          },
-                          "doors_open_time": {
-                            "type": "time"
-                          },
-                          "venue_id": {
-                            "type": "integer"
-                          },
-                          "show_date": {
-                            "type": "date"
-                          }
-                        }
-                      },
-                      "show_date": {
-                        "type": "date"
-                      },
-                      "gigs_contract": {
-                        "type": "object",
-                        "properties": {
-                          "available": {
-                            "type": "boolean"
-                          },
-                          "band_name": {
-                            "type": "string"
-                          },
-                          "gig_id": {
-                            "type": "integer"
-                          },
-                          "term": {
-                            "type": "string"
-                          },
-                          "show_id": {
-                            "type": "integer"
-                          },
-                          "compensation": {
-                            "type": "integer"
-                          },
-                          "from_time": {
-                            "type": "time"
-                          },
-                          "to_time": {
-                            "type": "time"
+                          "gigData": {
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "term": {
+                                  "type": "string"
+                                },
+                                "show_id": {
+                                  "type": "integer"
+                                },
+                                "compensation": {
+                                  "type": "integer"
+                                },
+                                "from_time": {
+                                  "type": "string"
+                                },
+                                "to_time": {
+                                  "type": "string"
+                                },
+                                "desired_band_type_id": {
+                                  "type": "integer"
+                                },
+                                "desired_music_intensity": {
+                                  "type": "integer"
+                                },
+                                "available": {
+                                  "type": "integer",
+                                  "example": true
+                                },
+                                "confirmed_bandname": {
+                                  "type": "string"
+                                },
+                                "current_band_state": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
                         }
                       }
