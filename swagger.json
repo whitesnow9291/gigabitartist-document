@@ -2584,6 +2584,9 @@
                               },
                               "show_date": {
                                 "type": "string"
+                              },
+                              "current_band_state": {
+                                "type": "string"
                               }
                             }
                           },
@@ -2620,9 +2623,6 @@
                                   "example": true
                                 },
                                 "confirmed_bandname": {
-                                  "type": "string"
-                                },
-                                "current_band_state": {
                                   "type": "string"
                                 }
                               }
