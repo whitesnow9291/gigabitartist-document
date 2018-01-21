@@ -3222,28 +3222,80 @@
                   "format": "int64",
                   "example": true
                 },
-                "history": {
-                  "type": "object",
-                  "properties": {
-                    "gig_id": {
-                      "type": "integer"
-                    },
-                    "venuename": {
-                      "type": "string"
-                    },
-                    "address": {
-                      "type": "string"
-                    },
-                    "show_date": {
-                      "type": "date"
-                    },
-                    "compensation": {
-                      "type": "integer"
-                    }
-                  }
-                },
                 "message": {
                   "type": "string"
+                },
+                "gighistory": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "venuesData": {
+                        "$ref": "#/definitions/venues"
+                      },
+                      "showData": {
+                        "type": "object",
+                        "properties": {
+                          "showData": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "age_restriction": {
+                                "type": "integer"
+                              },
+                              "load_in_time": {
+                                "type": "string"
+                              },
+                              "doors_open_time": {
+                                "type": "string"
+                              },
+                              "venue_id": {
+                                "type": "integer"
+                              },
+                              "show_date": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "gigData": {
+                            "type": "array",
+                            "items": {
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "term": {
+                                  "type": "string"
+                                },
+                                "show_id": {
+                                  "type": "integer"
+                                },
+                                "compensation": {
+                                  "type": "integer"
+                                },
+                                "from_time": {
+                                  "type": "string"
+                                },
+                                "to_time": {
+                                  "type": "string"
+                                },
+                                "desired_band_type_id": {
+                                  "type": "integer"
+                                },
+                                "desired_music_intensity": {
+                                  "type": "integer"
+                                },
+                                "confirmed_bandname": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
