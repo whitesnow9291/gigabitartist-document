@@ -4114,6 +4114,9 @@
         "BandHasApplied": {
           "type": "string"
         },
+        "ContractSuggested": {
+          "type": "string"
+        },
         "ApplicationWithdrawn": {
           "type": "string"
         },
