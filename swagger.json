@@ -2554,7 +2554,7 @@
                 "message": {
                   "type": "string"
                 },
-                "upcominggigs": {
+                "gigcontractofmonths": {
                   "type": "array",
                   "items": {
                     "properties": {
