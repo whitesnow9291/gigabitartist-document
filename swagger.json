@@ -534,6 +534,13 @@
           },
           {
             "in": "formData",
+            "name": "email",
+            "description": "email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
             "name": "token",
             "description": "token of current user",
             "required": true,
@@ -550,6 +557,9 @@
                   "type": "integer",
                   "format": "int64",
                   "example": true
+                },
+                "token": {
+                  "type": "string"
                 },
                 "account": {
                   "type": "object",
