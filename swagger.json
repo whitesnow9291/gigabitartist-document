@@ -3206,6 +3206,12 @@
             "name": "page",
             "required": true,
             "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "band_id",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
