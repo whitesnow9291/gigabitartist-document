@@ -968,9 +968,72 @@
         "tags": [
           "band_membership"
         ],
+        "summary": "leader reject user from band",
+        "description": "leader reject user from band",
+        "operationId": "denyByLeader",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user denied",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band_membership/removedByLeader": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
         "summary": "leader remove user from band",
         "description": "leader remove user from band",
-        "operationId": "denyByLeader",
+        "operationId": "removedByLeader",
         "consumes": [
           "multipart/form-data"
         ],
