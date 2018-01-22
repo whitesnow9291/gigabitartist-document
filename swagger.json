@@ -2971,6 +2971,69 @@
         }
       }
     },
+    "/rate/reportVenue": {
+      "post": {
+        "tags": [
+          "rate"
+        ],
+        "summary": "report venue",
+        "description": "report venue",
+        "operationId": "reportVenue",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "gig_id",
+            "description": "id of gig",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "report_content",
+            "description": "content of report",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "report_content",
+            "description": "content of report",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/rate/setVenueRating": {
       "post": {
         "tags": [
@@ -3013,7 +3076,7 @@
           },
           {
             "in": "formData",
-            "name": "production_rating",
+            "name": "performance_rating",
             "required": true,
             "type": "integer"
           },
@@ -3026,12 +3089,6 @@
           {
             "in": "formData",
             "name": "play_here_again_rating",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "review",
             "required": true,
             "type": "integer"
           },
@@ -3982,7 +4039,7 @@
         "audience_turnout_rating": {
           "type": "integer"
         },
-        "production_rating": {
+        "performance_rating": {
           "type": "integer"
         },
         "venue_profile_accuracy_rating": {
