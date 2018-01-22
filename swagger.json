@@ -551,6 +551,9 @@
                   "format": "int64",
                   "example": true
                 },
+                "token": {
+                  "type": "string"
+                },
                 "account": {
                   "type": "object",
                   "properties": {
