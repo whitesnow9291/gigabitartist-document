@@ -2694,6 +2694,9 @@
                                 "available": {
                                   "type": "integer",
                                   "example": true
+                                },
+                                "confirmed_band": {
+                                  "type": "string"
                                 }
                               }
                             }
