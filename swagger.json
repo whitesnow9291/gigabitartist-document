@@ -1089,6 +1089,62 @@
         }
       }
     },
+    "/band_membership/memberleaveband": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "user leave from band",
+        "description": "user leave from band",
+        "operationId": "memberleaveband",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user denied",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of current user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/band_membership/changeBandMembershipType": {
       "post": {
         "tags": [
