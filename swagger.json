@@ -4258,6 +4258,9 @@
         "NOTIFY_BAND_MEMBERSHIP_DENIEDBYLEADER": {
           "type": "string"
         },
+        "NOTIFY_BAND_MEMBERSHIP_REMOVEDBYLEADER": {
+          "type": "string"
+        },
         "NOTIFY_BAND_MEMBERSHIP_DECLINEDBYMEMBER": {
           "type": "string"
         },
