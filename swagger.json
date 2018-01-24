@@ -2989,6 +2989,100 @@
         }
       }
     },
+    "/instrument/updateBandMemberInstrument": {
+      "post": {
+        "tags": [
+          "instrument"
+        ],
+        "summary": "reset existing instrument to user",
+        "description": "reset instrument to user",
+        "operationId": "resetBandMemberInstrument",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "band id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "instrument_id",
+            "description": "instrument_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "number_outputs",
+            "description": "number_outputs",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "details",
+            "description": "detailed description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "stage_plot_x",
+            "description": "stage_plot_x",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "stage_plot_y",
+            "description": "stage_plot_y",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "newmemberinstrument_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/instrument/resetBandMemberInstrument": {
       "post": {
         "tags": [
