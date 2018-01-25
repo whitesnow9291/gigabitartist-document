@@ -3430,6 +3430,13 @@
             "description": "content of report",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
