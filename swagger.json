@@ -1362,6 +1362,139 @@
         }
       }
     },
+    "/band/bandUpdate": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "update band",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "description": "",
+        "operationId": "bandUpdate",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "band_name",
+            "description": "name of band (this should be unique)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "genre",
+            "description": "genre of band as string separated by commas. Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "hometown",
+            "description": "address of band",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "music_intensity",
+            "description": "music intensity as number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "email",
+            "description": "email of band",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "website_url",
+            "description": "url of band homepage",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "band_type_id",
+            "description": "band type id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "playacoustic",
+            "description": "playacoustic",
+            "required": true,
+            "type": "string",
+            "example": "true, false"
+          },
+          {
+            "in": "formData",
+            "name": "hasmerch",
+            "description": "hasmerch",
+            "required": true,
+            "type": "string",
+            "example": "true, false"
+          },
+          {
+            "in": "formData",
+            "name": "haspa",
+            "description": "haspa",
+            "required": true,
+            "type": "string",
+            "example": "true, false"
+          },
+          {
+            "in": "formData",
+            "name": "token",
+            "description": "token of user when generated user signup or signin to application",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "new_band": {
+                  "$ref": "#definitions/bands"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "successfuly created new band"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/band/getUserStatus": {
       "post": {
         "tags": [
@@ -1819,6 +1952,84 @@
             "description": "band image file",
             "required": true,
             "type": "file"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band/uploadBandMusic": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "upload band image file",
+        "description": "upload band image file",
+        "operationId": "uploadBandPhoto",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "music",
+            "description": "band image file or URL if postfromlocal == false",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "song_name",
+            "description": "song name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "album_song",
+            "description": "album song",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "postfromlocal",
+            "description": "check if music is local file or public url",
+            "required": true,
+            "type": "string",
+            "example": "true, false"
           }
         ],
         "responses": {
