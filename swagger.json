@@ -515,28 +515,30 @@
             "name": "first_name",
             "in": "formData",
             "description": "first name",
-            "required": true,
             "type": "string"
           },
           {
             "name": "last_name",
             "in": "formData",
             "description": "last name of user",
-            "required": true,
             "type": "string"
           },
           {
             "in": "formData",
             "name": "phone_number",
             "description": "phone number (valid  8615174176504)",
-            "required": true,
             "type": "string"
           },
           {
             "in": "formData",
             "name": "email",
             "description": "email",
-            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "photo",
+            "description": "social public photo url",
             "type": "string"
           },
           {
