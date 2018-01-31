@@ -1668,6 +1668,9 @@
                 "band": {
                   "$ref": "#definitions/bands"
                 },
+                "bandmembership_status": {
+                  "type": "string"
+                },
                 "message": {
                   "type": "string",
                   "example": "successfuly updated currently used band id"
