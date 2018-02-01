@@ -2089,9 +2089,16 @@
           {
             "in": "formData",
             "name": "music",
-            "description": "band image file or URL if postfromlocal == false",
+            "description": "band image file if postfromlocal == false",
             "required": true,
             "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "music_url",
+            "description": "band image file or URL if postfromlocal == true",
+            "required": true,
+            "type": "string"
           },
           {
             "in": "formData",
