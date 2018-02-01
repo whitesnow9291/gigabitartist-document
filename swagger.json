@@ -1217,6 +1217,76 @@
         }
       }
     },
+    "/band_membership/setStage": {
+      "post": {
+        "tags": [
+          "band_membership"
+        ],
+        "summary": "change band membership stage",
+        "description": "change band membership stage",
+        "operationId": "setStage",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "band_id",
+            "description": "id of band user denied",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "account_id",
+            "description": "id of account",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "stage_plot_x",
+            "description": "stage_plot_x",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "stage_plot_y",
+            "description": "stage_plot_y",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/band/bandTypes": {
       "get": {
         "tags": [
@@ -3097,20 +3167,6 @@
             "description": "detailed description",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_x",
-            "description": "stage_plot_x",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_y",
-            "description": "stage_plot_y",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -3254,20 +3310,6 @@
             "description": "detailed description",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_x",
-            "description": "stage_plot_x",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_y",
-            "description": "stage_plot_y",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -3355,20 +3397,6 @@
             "description": "detailed description",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_x",
-            "description": "stage_plot_x",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_y",
-            "description": "stage_plot_y",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
