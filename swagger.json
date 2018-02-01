@@ -1963,6 +1963,12 @@
                       "band_membership_id": {
                         "type": "integer"
                       },
+                      "stage_plot_x": {
+                        "type": "integer"
+                      },
+                      "stage_plot_y": {
+                        "type": "integer"
+                      },
                       "instruments": {
                         "type": "array",
                         "items": {
