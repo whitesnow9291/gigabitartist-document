@@ -1233,32 +1233,35 @@
         ],
         "parameters": [
           {
-            "in": "formData",
-            "name": "band_id",
-            "description": "id of band user denied",
+            "in": "body",
+            "name": null,
+            "description": "stage plot infos",
             "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "account_id",
-            "description": "id of account",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_x",
-            "description": "stage_plot_x",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "in": "formData",
-            "name": "stage_plot_y",
-            "description": "stage_plot_y",
-            "required": true,
-            "type": "integer"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "band_id": {
+                  "type": "integer"
+                },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "acount_id": {
+                        "type": "integer"
+                      },
+                      "stage_plot_x": {
+                        "type": "integer"
+                      },
+                      "stage_plot_y": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         ],
         "responses": {
