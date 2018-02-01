@@ -2089,14 +2089,14 @@
           {
             "in": "formData",
             "name": "music",
-            "description": "band image file if postfromlocal == false",
+            "description": "band image file if postfromlocal == true",
             "required": true,
             "type": "file"
           },
           {
             "in": "formData",
             "name": "music_url",
-            "description": "band image file or URL if postfromlocal == true",
+            "description": "band image file or URL if postfromlocal == false",
             "required": true,
             "type": "string"
           },
@@ -2119,7 +2119,7 @@
             "name": "postfromlocal",
             "description": "check if music is local file or public url",
             "required": true,
-            "type": "string",
+            "type": "s",
             "example": "true, false"
           }
         ],
