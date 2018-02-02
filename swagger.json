@@ -1682,9 +1682,17 @@
                       "type": "integer",
                       "format": "int64"
                     },
-                    "band_audio_file_id": {
-                      "type": "integer",
-                      "format": "int64"
+                    "song_name": {
+                      "type": "string"
+                    },
+                    "album_name": {
+                      "type": "string"
+                    },
+                    "audio_url": {
+                      "type": "string"
+                    },
+                    "audio_length": {
+                      "type": "float"
                     }
                   }
                 },
