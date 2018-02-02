@@ -1682,6 +1682,9 @@
                       "type": "integer",
                       "format": "int64"
                     },
+                    "audio_file_id": {
+                      "type": "integer"
+                    },
                     "song_name": {
                       "type": "string"
                     },
