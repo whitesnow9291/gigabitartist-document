@@ -1747,7 +1747,71 @@
                   "example": true
                 },
                 "band": {
-                  "$ref": "#definitions/bands"
+                  "type": "object",
+                  "properties": {
+                    "band_id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "genre": {
+                      "type": "string"
+                    },
+                    "hometown": {
+                      "type": "string"
+                    },
+                    "music_intensity": {
+                      "type": "integer"
+                    },
+                    "haspa": {
+                      "type": "int64",
+                      "example": true
+                    },
+                    "playacoustic": {
+                      "type": "int64",
+                      "example": true
+                    },
+                    "hasmerch": {
+                      "type": "int64",
+                      "example": true
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "website_url": {
+                      "type": "string"
+                    },
+                    "band_type_id": {
+                      "type": "integer"
+                    },
+                    "audio_file_id": {
+                      "type": "integer"
+                    },
+                    "song_name": {
+                      "type": "string"
+                    },
+                    "album_song": {
+                      "type": "string"
+                    },
+                    "audio_length": {
+                      "type": "float"
+                    },
+                    "audio_url": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "object",
+                      "properties": {
+                        "large": {
+                          "type": "string"
+                        },
+                        "small": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 },
                 "bandmembership_status": {
                   "type": "string"
