@@ -615,6 +615,60 @@
         }
       }
     },
+    "/auth/setFcmRegisterToken": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "change user fcm token",
+        "description": "change user fcm token",
+        "operationId": "setFcmRegisterToken",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "fcm_register_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/band_membership/bandMembershipTypes": {
       "get": {
         "tags": [
