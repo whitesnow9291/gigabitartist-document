@@ -2914,6 +2914,9 @@
                                     "type": "integer",
                                     "example": true
                                   },
+                                  "created_at": {
+                                    "type": "string"
+                                  },
                                   "confirmed_bandname": {
                                     "type": "string"
                                   }
@@ -4587,6 +4590,9 @@
           "type": "float"
         },
         "unit": {
+          "type": "string"
+        },
+        "merchandise_permissions": {
           "type": "string"
         }
       }
