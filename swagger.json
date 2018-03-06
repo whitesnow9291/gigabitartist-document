@@ -2457,6 +2457,124 @@
         }
       }
     },
+    "/band/getAudioFile": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "get audio file info",
+        "description": "get audio file info",
+        "operationId": "getAudioFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "audio_id",
+            "description": "id of audio",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                },
+                "audio_file": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "song_name": {
+                      "type": "string"
+                    },
+                    "album_song": {
+                      "type": "string"
+                    },
+                    "audio_length": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/band/removeAudioFile": {
+      "post": {
+        "tags": [
+          "band"
+        ],
+        "summary": "remove audio and remove audio info from band",
+        "description": "remove audio and remove audio info from band",
+        "operationId": "removeAudioFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "audio_id",
+            "description": "id of audio",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "success": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "failed": {
+            "description": "failed operation",
+            "schema": {
+              "$ref": "#/definitions/CommmonErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/gig_contract/submitMPK": {
       "post": {
         "tags": [
