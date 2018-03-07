@@ -2200,7 +2200,7 @@
         ],
         "summary": "upload band image file",
         "description": "upload band image file",
-        "operationId": "uploadBandPhoto",
+        "operationId": "uploadBandMusic",
         "consumes": [
           "multipart/form-data"
         ],
@@ -2265,6 +2265,26 @@
                 },
                 "message": {
                   "type": "string"
+                },
+                "audio_info": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "song_name": {
+                      "type": "string"
+                    },
+                    "album_song": {
+                      "type": "string"
+                    },
+                    "audio_length": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
